@@ -1,69 +1,32 @@
-// js/api.js
 import { GameState } from './app.js';
-import { Storage } from './storage.js';
 
-/*
-    Mapeia objetos JS em hashes.
-*/
-const hashValue = (value) => {
-    const json = JSON.stringify(value || {});
-    let hash = 0;
-
-    for (let i = 0; i < json.length; i += 1) {
-        hash = ((hash << 5) - hash) + json.charCodeAt(i);
-        hash |= 0;
-    }
-    return hash.toString(16);
-};
-
-// Gerenciador da API
 export const API = {
-    operationLog: [],
-
-    /*
-        Adiciona uma operação na fila de operações que serão salvas no proximo save.
-    */
-    queueOperation(type, data = {}) {
-        this.operationLog.push({
-            type,
-            data,
-            hash: hashValue({ type, data })
-        });
-    },
-
-    /*
-        Sincronização de dados locais com o servidor. Ao ser chamada, salva os registros da fila.
-    */
-    async sync() {
+    async save() {
         try {
-            const payload = {
-                token: GameState.player.token,
-                operations: this.operationLog,
-                stateHash: GameState.player.lastValidHash || null,
-                playerData: GameState.player
-            };
-
-            const response = await fetch('api/sync.php', {
+            const response = await fetch('api/save.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({ playerData: GameState.player })
             });
 
             const result = await response.json();
+            return result.status === 'ok';
+        } catch (e) {
+            console.error('Falha ao salvar no servidor:', e);
+            return false;
+        }
+    },
+
+    async load() {
+        try {
+            const response = await fetch('api/load.php');
+            const result = await response.json();
 
             if (result.status === 'ok') {
-                this.operationLog = [];
-                GameState.update({
-                    ...(result.newData || GameState.player),
-                    lastValidHash: result.serverHash || result.newHash || GameState.player.lastValidHash
-                });
-                Storage.save('playerData', GameState.player);
-            } else if (result.status === 'corrupt') {
-                alert('Dados inconsistentes!');
-                GameState.rollbackToLastValid();
+                GameState.update(result.playerData);
             }
         } catch (e) {
-            console.error('Erro de sincronização');
+            console.error('Falha ao carregar do servidor:', e);
         }
     }
 };

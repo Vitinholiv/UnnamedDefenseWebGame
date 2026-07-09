@@ -1,4 +1,3 @@
-// js/app.js
 import { Storage } from './storage.js';
 import { StartScreen } from './screens/start.js';
 import { SettingsScreen } from './screens/settings.js';
@@ -8,99 +7,118 @@ import { SkillsScreen } from './screens/skills.js';
 import { BattleScreen } from './screens/battle.js';
 import { AchievementsScreen } from './screens/achievements.js';
 
-/*
-    Define a estrutura base e o estado inicial do perfil do player, contendo
-    os dados de sessão (token) e progresso.
-*/
 const defaultPlayer = {
     username: null,
-    token: null,
+    isAuthenticated: false,
     levels: [],
     units: [],
     skills: [],
     achievements: []
 };
 
-/*
-    Define as preferências de configuração do usuário que são independentes do progresso 
-    do jogo.
-*/
 const defaultSettings = {
     sfxVolume: 100,
     musicVolume: 100,
     language: 'pt-BR'
 };
 
-/*
-    Objeto central que gerencia o estado global da aplicação. 
-    Realiza o carregamento persistente via Storage, gerencia atualizações 
-    incrementais do perfil e implementa mecanismos de rollback.
-*/
 export const GameState = {
     player: Storage.load('playerData', { ...defaultPlayer }),
     settings: Storage.load('gameSettings', { ...defaultSettings }),
 
-    clone(value){
-        return JSON.parse(JSON.stringify(value));
-    },
-
-    saveLocal: function(){
+    saveLocal: function() {
         Storage.save('playerData', this.player);
         Storage.save('gameSettings', this.settings);
     },
 
-    update(data){
-        if(!data || typeof data !== 'object'){
-            return;
-        }
+    isLoggedIn: function() {
+        return Boolean(this.player?.username && this.player?.isAuthenticated);
+    },
 
-        this.player = {
-            ...this.player,
-            ...data
-        };
-
+    setUser: function(username) {
+        this.player.username = username;
+        this.player.isAuthenticated = true;
         this.saveLocal();
     },
 
-    rollbackToLastValid(){
-        const fallback = Storage.load('playerData', { ...defaultPlayer });
-        this.player = { ...fallback };
+    clearSession: function() {
+        this.player.username = null;
+        this.player.isAuthenticated = false;
+        this.saveLocal();
+    },
+
+    update(data) {
+        if (!data || typeof data !== 'object') return;
+        this.player = { ...this.player, ...data };
         this.saveLocal();
     }
 };
 
 const appContainer = document.getElementById('game-app');
 
-/*
-    Router da aplicação.
-*/
 export const navigateTo = (screenName) => {
     appContainer.innerHTML = '';
+    const screens = {
+        'start': StartScreen,
+        'settings': SettingsScreen,
+        'levels': LevelsScreen,
+        'units': UnitsScreen,
+        'skills': SkillsScreen,
+        'battle': BattleScreen,
+        'achievements': AchievementsScreen
+    };
 
-    switch (screenName){
-        case 'start':
-            appContainer.innerHTML = StartScreen();
-            break;
-        case 'settings':
-            appContainer.innerHTML = SettingsScreen();
-            break;
-        case 'levels':
-            appContainer.innerHTML = LevelsScreen();
-            break;
-        case 'units':
-            appContainer.innerHTML = UnitsScreen();
-            break;
-        case 'battle':
-            appContainer.innerHTML = BattleScreen();
-            break;
-        case 'achievements':
-            appContainer.innerHTML = AchievementsScreen();
-            break;
-        default:
-            appContainer.innerHTML = StartScreen();
-    }
+    const screenFn = screens[screenName] || StartScreen;
+    appContainer.innerHTML = screenFn();
 };
 
-// Inicialização
+window.GameState = GameState;
 window.navigateTo = navigateTo;
-navigateTo('start');
+
+const authFetch = async (action, data) => {
+    const response = await fetch('api/auth.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, ...data })
+    });
+    return await response.json();
+};
+
+window.handleStartLogin = async () => {
+    const username = document.getElementById('login-user')?.value.trim();
+    const password = document.getElementById('login-pass')?.value;
+
+    if (!username || !password) return;
+
+    try {
+        const result = await authFetch('login', { username, password });
+        if (result.status === 'ok') {
+            GameState.setUser(username);
+            window.navigateTo('levels');
+        } else {
+            GameState.clearSession();
+            alert(result.message);
+        }
+    } catch (e) { GameState.clearSession(); alert('Erro ao conectar I.'); }
+};
+
+window.handleStartRegister = async () => {
+    const username = document.getElementById('reg-user')?.value.trim();
+    const password = document.getElementById('reg-pass')?.value;
+    const repeat = document.getElementById('reg-pass-repeat')?.value;
+
+    if (!username || !password || password !== repeat) return;
+
+    try {
+        const result = await authFetch('register', { username, password });
+        if (result.status === 'ok') {
+            GameState.setUser(username);
+            window.navigateTo('levels');
+        } else {
+            GameState.clearSession();
+            alert(result.message);
+        }
+    } catch (e) { GameState.clearSession(); alert('Erro ao conectar II.'); }
+};
+
+navigateTo(GameState.isLoggedIn() ? 'levels' : 'start');
