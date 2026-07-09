@@ -1,4 +1,4 @@
-export const UnitsScreen = () => {
+export const SkillsScreen = () => {
     return `
         <div class="screen skills-screen">
             <header>
