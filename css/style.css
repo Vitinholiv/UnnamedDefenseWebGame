@@ -1,0 +1,511 @@
+/* Reset e Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0b0c10;
+    color: #c5c6c7;
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    background: radial-gradient(circle at center, #1f2833 0%, #0b0c10 100%);
+    min-height: 100vh;
+}
+
+/* Tela Inicial */
+.start-screen-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.game-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(102, 252, 241, 0.5), 0 0 20px rgba(102, 252, 241, 0.3);
+}
+
+.game-title .title-unnamed {
+    color: #66fcf1;
+    font-size: 2rem;
+    letter-spacing: 8px;
+    text-shadow: 0 0 15px rgba(102, 252, 241, 0.8);
+}
+
+.auth-panel {
+    display: flex;
+    flex-direction: column;
+    background: rgba(15, 20, 25, 0.85);
+    border: 1px solid #45a29e;
+    border-radius: 8px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 15px rgba(69, 162, 158, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.panel-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: #66fcf1;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.game-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #45a29e;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-family: 'Rajdhani', sans-serif;
+    padding: 10px 5px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.game-input::placeholder {
+    color: #7a8288;
+}
+
+.game-input:focus {
+    border-bottom-color: #66fcf1;
+    box-shadow: 0 5px 15px -5px rgba(102, 252, 241, 0.5);
+    background: rgba(102, 252, 241, 0.05);
+}
+
+.game-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #0b0c10;
+    background-color: #66fcf1;
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px rgba(102, 252, 241, 0.4);
+}
+
+.game-btn:hover {
+    background-color: #ffffff;
+    box-shadow: 0 0 25px rgba(102, 252, 241, 0.8);
+    transform: translateY(-2px);
+}
+
+.game-btn.active-register {
+    background-color: #45a29e;
+}
+.game-btn.active-register:hover {
+    background-color: #66fcf1;
+}
+
+.toggle-mode {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 1rem;
+    color: #c5c6c7;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.toggle-mode span {
+    color: #66fcf1;
+    font-weight: 600;
+}
+
+.toggle-mode:hover span {
+    text-decoration: underline;
+    text-shadow: 0 0 8px rgba(102, 252, 241, 0.5);
+}
+
+/* Alerta Customizado */
+.game-alert-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(11, 12, 16, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.game-alert-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.game-alert-box {
+    background: rgba(15, 20, 25, 0.95);
+    border: 1px solid #45a29e;
+    border-top: 4px solid #66fcf1;
+    padding: 30px;
+    border-radius: 4px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: translateY(-30px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(102, 252, 241, 0.2);
+}
+
+.game-alert-overlay.active .game-alert-box {
+    transform: translateY(0);
+}
+
+.game-alert-title {
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.game-alert-msg {
+    font-size: 1.1rem;
+    color: #c5c6c7;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+.game-alert-box.alert-error {
+    border-color: #8c262e;
+    border-top-color: #ff4655;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 70, 85, 0.2);
+}
+
+.game-alert-box.alert-error .game-alert-title {
+    color: #ff4655;
+    text-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
+}
+
+.game-alert-box.alert-error .game-alert-btn {
+    background-color: #ff4655;
+    box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
+}
+
+.game-alert-box.alert-error .game-alert-btn:hover {
+    background-color: #ffffff;
+    box-shadow: 0 0 25px rgba(255, 70, 85, 0.8);
+}
+
+/* Layout Global */
+.game-layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #111a22 0%, #0b0c10 100%);
+}
+
+.game-content-area {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(15, 20, 25, 0.95);
+    border-bottom: 2px solid #45a29e;
+    padding: 10px 20px;
+    z-index: 10;
+}
+
+.top-left, .top-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.top-right {
+    justify-content: flex-end;
+}
+
+.top-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.player-name {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-shadow: 0 0 5px rgba(102, 252, 241, 0.4);
+}
+
+.player-level-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 2px;
+}
+
+.level-text {
+    font-size: 0.8rem;
+    color: #45a29e;
+    font-weight: 700;
+}
+
+.xp-bar {
+    width: 100px;
+    height: 6px;
+    background: #1f2833;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.xp-fill {
+    height: 100%;
+    background: #66fcf1;
+    box-shadow: 0 0 5px #66fcf1;
+    transition: width 0.3s ease;
+}
+
+.currencies {
+    display: flex;
+    gap: 15px;
+    margin-left: 15px;
+}
+
+.currency {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; 
+    font-size: 1.1rem;
+    color: #fff;
+    background: rgba(0,0,0,0.4);
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(102, 252, 241, 0.2);
+}
+
+.coin-icon {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.screen-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #66fcf1;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.settings-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.3s ease;
+}
+.settings-btn:hover { transform: rotate(90deg) scale(1.1); }
+.settings-btn svg { width: 30px; height: 30px; }
+
+/* Bottom Bar */
+.bottom-bar {
+    display: flex;
+    justify-content: center;
+    background: rgba(15, 20, 25, 0.95);
+    border-top: 2px solid #45a29e;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.nav-btn {
+    flex: 1;
+    max-width: 200px;
+    padding: 15px 0;
+    background: transparent;
+    border: none;
+    border-right: 1px solid rgba(69, 162, 158, 0.3);
+    color: #7a8288;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:last-child {
+    border-right: none;
+}
+
+.nav-btn:hover {
+    color: #c5c6c7;
+    background: rgba(102, 252, 241, 0.05);
+}
+
+.nav-btn.active {
+    color: #66fcf1;
+    background: rgba(102, 252, 241, 0.1);
+    box-shadow: inset 0 -4px 0 #66fcf1;
+    text-shadow: 0 0 8px rgba(102, 252, 241, 0.4);
+}
+
+/* Configurações */
+.settings-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.settings-panel {
+    background: rgba(15, 20, 25, 0.95);
+    border: 1px solid #45a29e;
+    padding: 40px;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.setting-item {
+    margin-bottom: 30px;
+}
+
+.setting-item label {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    color: #66fcf1;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+input[type=range] {
+    width: 100%;
+    accent-color: #66fcf1;
+    cursor: pointer;
+}
+
+.game-select {
+    width: 100%;
+    background: #0b0c10;
+    color: #fff;
+    border: 1px solid #45a29e;
+    padding: 10px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    outline: none;
+}
+
+.logout-btn {
+    width: 100%;
+    background-color: #8c262e;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.logout-btn:hover {
+    background-color: #ff4655;
+}
+
+.settings-trigger-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 1px solid #45a29e;
+    color: #66fcf1;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-trigger-btn:hover {
+    background: #66fcf1;
+    color: #0b0c10;
+    transform: rotate(90deg);
+}
+
+.settings-trigger-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* View Standalone */
+.standalone-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 20px;
+}
+
+.back-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid #45a29e;
+    color: #66fcf1;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.back-btn:hover {
+    background: #66fcf1;
+    color: #0b0c10;
+}
+
+.standalone-wrapper {
+    margin-left: 20px;
+    margin-top: 20px;
+}
