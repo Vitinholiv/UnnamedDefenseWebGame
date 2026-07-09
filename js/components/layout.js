@@ -59,11 +59,11 @@ export const GameLayout = (contentHTML, currentScreen) => {
                     
                     <div class="currencies">
                         <div class="currency coin-gold">
-                            <div class="coin-icon gold"></div>
+                            <div class="coin-icon gold">🟡</div>
                             <span>${player.goldCoins || 0}</span>
                         </div>
                         <div class="currency coin-silver">
-                            <div class="coin-icon silver"></div>
+                            <div class="coin-icon silver">🔵</div>
                             <span>${player.silverCoins || 0}</span>
                         </div>
                     </div>
