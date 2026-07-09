@@ -6,6 +6,8 @@ import { UnitsScreen } from './screens/units.js';
 import { SkillsScreen } from './screens/skills.js';
 import { BattleScreen } from './screens/battle.js';
 import { AchievementsScreen } from './screens/achievements.js';
+import { GameLayout } from './components/layout.js';
+import { GameUI } from './ui.js';
 
 const defaultPlayer = {
     username: null,
@@ -13,6 +15,9 @@ const defaultPlayer = {
     levels: [],
     units: [],
     skills: [],
+    goldCoins: 0,
+    silverCoins: 0,
+    experience: 0,
     achievements: []
 };
 
@@ -26,29 +31,29 @@ export const GameState = {
     player: Storage.load('playerData', { ...defaultPlayer }),
     settings: Storage.load('gameSettings', { ...defaultSettings }),
 
-    saveLocal: function() {
+    saveLocal: function(){
         Storage.save('playerData', this.player);
         Storage.save('gameSettings', this.settings);
     },
 
-    isLoggedIn: function() {
+    isLoggedIn: function(){
         return Boolean(this.player?.username && this.player?.isAuthenticated);
     },
 
-    setUser: function(username) {
+    setUser: function(username){
         this.player.username = username;
         this.player.isAuthenticated = true;
         this.saveLocal();
     },
 
-    clearSession: function() {
+    clearSession: function(){
         this.player.username = null;
         this.player.isAuthenticated = false;
         this.saveLocal();
     },
 
-    update(data) {
-        if (!data || typeof data !== 'object') return;
+    update(data){
+        if(!data || typeof data !== 'object') return;
         this.player = { ...this.player, ...data };
         this.saveLocal();
     }
@@ -69,7 +74,13 @@ export const navigateTo = (screenName) => {
     };
 
     const screenFn = screens[screenName] || StartScreen;
-    appContainer.innerHTML = screenFn();
+    const contentHTML = screenFn();
+
+    if(screenName === 'start' || screenName == 'battle'){
+        appContainer.innerHTML = contentHTML;
+    } else {
+        appContainer.innerHTML = GameLayout(contentHTML, screenName);
+    }
 };
 
 window.GameState = GameState;
@@ -88,18 +99,18 @@ window.handleStartLogin = async () => {
     const username = document.getElementById('login-user')?.value.trim();
     const password = document.getElementById('login-pass')?.value;
 
-    if (!username || !password) return;
+    if(!username || !password) return;
 
     try {
         const result = await authFetch('login', { username, password });
-        if (result.status === 'ok') {
+        if(result.status === 'ok'){
             GameState.setUser(username);
             window.navigateTo('levels');
         } else {
             GameState.clearSession();
-            alert(result.message);
+            GameUI.showAlert(result.message);
         }
-    } catch (e) { GameState.clearSession(); alert('Erro ao conectar I.'); }
+    } catch (e){ GameState.clearSession(); GameUI.showAlert('Erro ao conectar I.'); }
 };
 
 window.handleStartRegister = async () => {
@@ -107,18 +118,18 @@ window.handleStartRegister = async () => {
     const password = document.getElementById('reg-pass')?.value;
     const repeat = document.getElementById('reg-pass-repeat')?.value;
 
-    if (!username || !password || password !== repeat) return;
+    if(!username || !password || password !== repeat) return;
 
     try {
         const result = await authFetch('register', { username, password });
-        if (result.status === 'ok') {
+        if(result.status === 'ok'){
             GameState.setUser(username);
             window.navigateTo('levels');
         } else {
             GameState.clearSession();
-            alert(result.message);
+            GameUI.showAlert(result.message);
         }
-    } catch (e) { GameState.clearSession(); alert('Erro ao conectar II.'); }
+    } catch (e){ GameState.clearSession(); GameUI.showAlert('Erro ao conectar II.'); }
 };
 
 navigateTo(GameState.isLoggedIn() ? 'levels' : 'start');
