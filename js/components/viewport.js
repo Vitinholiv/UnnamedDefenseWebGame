@@ -9,8 +9,8 @@ export class SpatialViewport {
         }
 
         this.config = {
-            worldWidth: options.worldWidth || 3000,
-            worldHeight: options.worldHeight || 2000,
+            worldWidth: options.worldWidth || 1600,
+            worldHeight: options.worldHeight || 732,
             zoomMax: options.zoomMax || 3.0,
             zoomSpeed: options.zoomSpeed || 0.1,
             zoomMin: 1.0

@@ -1,5 +1,5 @@
 import { SpatialViewport } from '../components/viewport.js';
-import { createEdge, createNode } from '../components/graph.js';
+import { createEdge, createNode, linkNodes } from '../components/graph.js';
 
 export const LevelsScreen = () => {
     const nodes = {
@@ -9,10 +9,12 @@ export const LevelsScreen = () => {
 
     const html = `
         <div id="campaign-map" style="width: 100%; height: 100%;">
-            ${createEdge(nodes.fase1.x, nodes.fase1.y, nodes.fase2.x, nodes.fase2.y, 'green')}
+            ${linkNodes(
+                nodes.fase1,
+                nodes.fase2,
+                'green'
+            )}
             ${createNode(nodes.fase1.x, nodes.fase1.y, 120, 60, "Fase 1", "red")}
-            ${createNode(1600, 900, 20, 20, "", "green")}
-            ${createNode(0, 0, 20, 20, "", "red")}
             ${createNode(nodes.fase2.x, nodes.fase2.y, 100, 100, "Bohemian Rhapsody", "green", "ex.png")}
         </div>
     `;
@@ -20,7 +22,7 @@ export const LevelsScreen = () => {
     setTimeout(() => {
         new SpatialViewport('#campaign-map', {
             worldWidth: 1600,
-            worldHeight: 900,
+            worldHeight: 800,
             zoomMax: 2.5,
             zoomSpeed: 0.2,
         });
