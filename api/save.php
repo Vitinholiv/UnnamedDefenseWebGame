@@ -2,25 +2,31 @@
 session_start();
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Não autenticado']);
+$config = require __DIR__ . '/autoload.php';
+$input = json_decode(file_get_contents('php://input'), true) ?? [];
+
+$secret_res = $input['secret'] ?? '';
+
+if($secret_res !== ($config['SECRET_STR'] ?? '')){
+    echo json_encode(['status' => 'error', 'message' => 'Unable to Save: Invalid Secret Key']);
     exit;
 }
 
-define('THIS_STRING_IS_SECRET_LOL_I_WILL_CHANGE_IT', true);
-$config = require __DIR__ . '/env.php';
-$pdo = new PDO("mysql:host={$config['DB_HOST']};dbname={$config['DB_NAME']};charset=utf8mb4", $config['DB_USER'], $config['DB_PASS']);
+if(!isset($_SESSION['user'])){
+    echo json_encode(['status' => 'error', 'message' => 'Unable to Save: Not Authenticated']);
+    exit;
+}
 
-$input = json_decode(file_get_contents('php://input'), true) ?? [];
+$pdo = new PDO("mysql:host={$config['DB_HOST']};dbname={$config['DB_NAME']};charset=utf8mb4", $config['DB_USER'], $config['DB_PASS']);
 $playerData = $input['playerData'] ?? null;
 
 if (!$playerData) {
-    echo json_encode(['status' => 'error', 'message' => 'Dados inválidos']);
+    echo json_encode(['status' => 'error', 'message' => 'Unable to Save: Invalid Data']);
     exit;
 }
 
 $stmt = $pdo->prepare("UPDATE users SET save_data = ? WHERE username = ?");
 $stmt->execute([json_encode($playerData), $_SESSION['user']]);
 
-echo json_encode(['status' => 'ok', 'message' => 'Progresso salvo!']);
+echo json_encode(['status' => 'ok', 'message' => 'Saved Progress']);
 ?>

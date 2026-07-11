@@ -1,13 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 header('Content-Type: application/json');
 
-define('THIS_STRING_IS_SECRET_LOL_I_WILL_CHANGE_IT', true);
-$config = require __DIR__ . '/env.php';
+$config = require __DIR__ . '/autoload.php';
 $host = $config['DB_HOST'];
 $db   = $config['DB_NAME'];
 $user = $config['DB_USER'];
@@ -17,7 +12,7 @@ $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
 try {
     $pdo = new PDO($dsn, $user, $pass);
 } catch (PDOException $e){
-    echo json_encode(['status' => 'error', 'message' => 'Erro na conexão com banco']);
+    echo json_encode(['status' => 'error', 'message' => 'Connection Error: Unable to Access Database']);
     exit;
 }
 
