@@ -44,26 +44,41 @@ export class SpatialViewport {
         this.world.innerHTML = innerContent;
         this.viewport.appendChild(this.world);
 
-        const rect = this.viewport.getBoundingClientRect();
-        const scaleX = rect.width / this.config.worldWidth;
-        const scaleY = rect.height / this.config.worldHeight;
-        
-        this.config.zoomMin = Math.max(scaleX, scaleY);
         this.state.zoom = this.config.zoomMin;
+
+        const rect = this.viewport.getBoundingClientRect();
+        const baseScale = Math.max(rect.width / this.config.worldWidth, rect.height / this.config.worldHeight);
+        const scaledWidth = this.config.worldWidth * baseScale * this.state.zoom;
+        const scaledHeight = this.config.worldHeight * baseScale * this.state.zoom;
+
+        this.state.x = (rect.width - scaledWidth) / 2;
+        this.state.y = (rect.height - scaledHeight) / 2;
     }
 
     updateTransform() {
         const rect = this.viewport.getBoundingClientRect();
-        const scaledWidth = this.config.worldWidth * this.state.zoom;
-        const scaledHeight = this.config.worldHeight * this.state.zoom;
         
-        const minX = Math.min(0, rect.width - scaledWidth);
-        const minY = Math.min(0, rect.height - scaledHeight);
+        const baseScale = Math.max(rect.width / this.config.worldWidth, rect.height / this.config.worldHeight);
+        const currentScale = baseScale * this.state.zoom;
+        
+        const scaledWidth = this.config.worldWidth * currentScale;
+        const scaledHeight = this.config.worldHeight * currentScale;
+        
+        if (scaledWidth < rect.width) {
+            this.state.x = (rect.width - scaledWidth) / 2;
+        } else {
+            const minX = rect.width - scaledWidth;
+            this.state.x = Math.max(minX, Math.min(0, this.state.x));
+        }
 
-        this.state.x = Math.max(minX, Math.min(0, this.state.x));
-        this.state.y = Math.max(minY, Math.min(0, this.state.y));
+        if (scaledHeight < rect.height) {
+            this.state.y = (rect.height - scaledHeight) / 2;
+        } else {
+            const minY = rect.height - scaledHeight;
+            this.state.y = Math.max(minY, Math.min(0, this.state.y));
+        }
         
-        this.world.style.transform = `translate(${this.state.x}px, ${this.state.y}px) scale(${this.state.zoom})`;
+        this.world.style.transform = `translate(${this.state.x}px, ${this.state.y}px) scale(${currentScale})`;
     }
 
     attachEvents() {
@@ -111,5 +126,9 @@ export class SpatialViewport {
             this.state.zoom = newZoom;
             this.updateTransform();
         }, { passive: false });
+        
+        window.addEventListener('resize', () => {
+            this.updateTransform();
+        });
     }
 }
