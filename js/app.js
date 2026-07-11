@@ -110,7 +110,7 @@ window.handleStartLogin = async () => {
             GameState.clearSession();
             GameUI.showAlert(result.message);
         }
-    } catch (e){ GameState.clearSession(); GameUI.showAlert('Erro ao conectar I.'); }
+    } catch (e){ GameState.clearSession(); GameUI.showAlert('Erro ao conectar: Login.'); }
 };
 
 window.handleStartRegister = async () => {
@@ -129,7 +129,7 @@ window.handleStartRegister = async () => {
             GameState.clearSession();
             GameUI.showAlert(result.message);
         }
-    } catch (e){ GameState.clearSession(); GameUI.showAlert('Erro ao conectar II.'); }
+    } catch (e){ GameState.clearSession(); GameUI.showAlert('Erro ao conectar: Registro.'); }
 };
 
 navigateTo(GameState.isLoggedIn() ? 'levels' : 'start');

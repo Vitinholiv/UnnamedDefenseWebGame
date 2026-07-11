@@ -1,20 +1,30 @@
-// js/screens/levels.js
-export const LevelsScreen = () => {
-    return `
-        <div class="screen levels-screen">
-            <header>
-                <h2>Mapa Mundi</h2>
-                <button onclick="navigateTo('units')">Gerenciar Unidades</button>
-                <button onclick="navigateTo('achievements')">Conquistas</button>
-            </header>
-            
-            <!-- Esta div será o container arrastável que faremos depois -->
-            <div id="map-graph-container" style="width: 100%; height: 400px; background: #333;">
-                <p style="color: white; padding: 20px;">Grafo de Níveis Arrastável virá aqui...</p>
-                <button onclick="navigateTo('battle')">Testar Nível 1</button>
-            </div>
+import { SpatialViewport } from '../components/viewport.js';
+import { createEdge, createNode } from '../components/graph.js';
 
-            <button onclick="navigateTo('start')">Sair</button>
+export const LevelsScreen = () => {
+    const nodes = {
+        fase1: { x: 800, y: 500 },
+        fase2: { x: 1200, y: 700 }
+    };
+
+    const html = `
+        <div id="campaign-map" style="width: 100%; height: 100%;">
+            ${createEdge(nodes.fase1.x, nodes.fase1.y, nodes.fase2.x, nodes.fase2.y, 'green')}
+            ${createNode(nodes.fase1.x, nodes.fase1.y, 120, 60, "Fase 1", "red")}
+            ${createNode(1600, 900, 20, 20, "", "green")}
+            ${createNode(0, 0, 20, 20, "", "red")}
+            ${createNode(nodes.fase2.x, nodes.fase2.y, 100, 100, "Bohemian Rhapsody", "green", "ex.png")}
         </div>
     `;
+
+    setTimeout(() => {
+        new SpatialViewport('#campaign-map', {
+            worldWidth: 1600,
+            worldHeight: 900,
+            zoomMax: 2.5,
+            zoomSpeed: 0.2,
+        });
+    }, 0);
+
+    return html;
 };
