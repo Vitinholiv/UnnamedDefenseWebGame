@@ -1,12 +1,9 @@
 // js/components/viewport.js
 
 export class SpatialViewport {
-    constructor(containerSelector, options = {}) {
-        this.viewport = typeof containerSelector === 'string' ? document.querySelector(containerSelector) : containerSelector;
-        
-        if (!this.viewport) {
-            return;
-        }
+    constructor(containerSelector, options = {}){
+        this.viewport = typeof containerSelector === 'string' ? document.querySelector(containerSelector) : containerSelector;        
+        if(!this.viewport) return;
 
         this.config = {
             worldWidth: options.worldWidth || 1600,
@@ -30,7 +27,7 @@ export class SpatialViewport {
         this.updateTransform();
     }
 
-    initDOM() {
+    initDOM(){
         this.viewport.classList.add('nav-viewport');
         
         const innerContent = this.viewport.innerHTML;
@@ -55,7 +52,7 @@ export class SpatialViewport {
         this.state.y = (rect.height - scaledHeight) / 2;
     }
 
-    updateTransform() {
+    updateTransform(){
         const rect = this.viewport.getBoundingClientRect();
         
         const baseScale = Math.max(rect.width / this.config.worldWidth, rect.height / this.config.worldHeight);
@@ -64,14 +61,14 @@ export class SpatialViewport {
         const scaledWidth = this.config.worldWidth * currentScale;
         const scaledHeight = this.config.worldHeight * currentScale;
         
-        if (scaledWidth < rect.width) {
+        if(scaledWidth < rect.width){
             this.state.x = (rect.width - scaledWidth) / 2;
         } else {
             const minX = rect.width - scaledWidth;
             this.state.x = Math.max(minX, Math.min(0, this.state.x));
         }
 
-        if (scaledHeight < rect.height) {
+        if(scaledHeight < rect.height){
             this.state.y = (rect.height - scaledHeight) / 2;
         } else {
             const minY = rect.height - scaledHeight;
@@ -81,9 +78,9 @@ export class SpatialViewport {
         this.world.style.transform = `translate(${this.state.x}px, ${this.state.y}px) scale(${currentScale})`;
     }
 
-    attachEvents() {
+    attachEvents(){
         this.viewport.addEventListener('mousedown', (e) => {
-            if (e.target !== this.world && e.target !== this.viewport && !e.target.closest('.nav-node')) return;
+            if(e.target !== this.world && e.target !== this.viewport && !e.target.closest('.nav-node')) return;
             
             this.state.isDragging = true;
             this.viewport.classList.add('dragging');
@@ -92,7 +89,7 @@ export class SpatialViewport {
         });
 
         window.addEventListener('mousemove', (e) => {
-            if (!this.state.isDragging) return;
+            if(!this.state.isDragging) return;
             
             this.state.x = e.clientX - this.state.startX;
             this.state.y = e.clientY - this.state.startY;

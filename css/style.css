@@ -619,3 +619,70 @@ input[type=range] {
 .nav-edge.green { background-color: #28a745; box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); }
 .nav-edge.red { background-color: #dc3545; box-shadow: 0 0 8px rgba(220, 53, 69, 0.5); }
 .nav-edge.dashed { background-color: transparent; border-top: 4px dashed #6c757d; box-shadow: none; }
+
+.floating-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    background: rgba(15, 20, 25, 0.95);
+    border: 1px solid #45a29e;
+    border-top: 4px solid #66fcf1;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(102, 252, 241, 0.15);
+    backdrop-filter: blur(5px);
+    
+    transform: translate(-50%, -45%) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.floating-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #45a29e;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 10001;
+    transition: color 0.2s;
+}
+
+.modal-close-btn:hover {
+    color: #ff4655;
+}
+
+@media (orientation: portrait) {
+    body {
+        overflow: hidden;
+    }
+
+    .game-layout-wrapper {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 100vh;
+        height: 100vw;
+        transform: translate(-50%, -50%) rotate(90deg);
+        transform-origin: center;
+    }
+
+    .top-bar, .bottom-bar {
+        width: 100vh;
+    }
+
+    .game-content-area {
+        width: 100vh;
+        height: calc(100vw - 120px); 
+    }
+}
