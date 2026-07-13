@@ -1,5 +1,6 @@
 //js/components/modal.js
 import { t } from '../i18n.js';
+import { GameState } from '../app.js';
 
 class ModalComponent {
     constructor(x, y, w, h){
@@ -51,11 +52,12 @@ export class ModalImage extends ModalComponent {
 }
 
 export class ModalButton extends ModalComponent {
-    constructor(x, y, w, h, text, styleType = 'blue', onClickFn = () => {}){
+    constructor(x, y, w, h, text, styleType = 'blue', onClickFn = () => {}, disabled = false){
         super(x, y, w, h);
         this.text = text;
         this.styleType = styleType;
         this.onClickFn = onClickFn;
+        this.disabled = disabled;
     }
 
     render(modalInstance){
@@ -72,9 +74,14 @@ export class ModalButton extends ModalComponent {
         btn.style.padding = '0';
         btn.innerText = this.text;
 
-        btn.addEventListener('click', (e) => {
-            this.onClickFn(e, modalInstance);
-        });
+        if (this.disabled) {
+            btn.disabled = true;
+            btn.style.cursor = 'not-allowed';
+        } else {
+            btn.addEventListener('click', (e) => {
+                this.onClickFn(e, modalInstance);
+            });
+        }
 
         container.appendChild(btn);
         return container;
@@ -185,19 +192,21 @@ export class LevelModal {
         this.objective = `level_objective${options.objective || 1}`;
         this.onPlay = options.onPlay || (() => {});
         this.extraComponents = options.extraComponents || [];
+        this.theme = options.theme || 'yellow'; 
     }
 
     render(modalInstance){
+        modalInstance.element.classList.add(this.theme);
         const container = document.createElement('div');
         container.style.width = '100%';
         container.style.height = '100%';
         container.style.position = 'relative';
 
         const content = [
-            new ModalTextBlock(5, 5, 90, 10, t(this.nameKey), '1.8rem', { color: '#f7ff03' }),
-            new ModalTextBlock(5, 20, 90, 25, t(this.descKey), '1.1rem', { border: '1px solid #ffffff', color: '#ffa220' }),
-            new ModalTextBlock(5, 51, 90, 10, t(this.objective), '1.2rem', { color: '#f7ff03' }),
-            new ModalButton(25, 81, 50, 15, t('btn_start'), 'yellow', (e, m) => {
+            new ModalTextBlock(5, 5, 90, 10, t(this.nameKey), '1.8rem', { color: 'var(--theme-vivid)' }),
+            new ModalTextBlock(5, 20, 90, 25, t(this.descKey), '1.1rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
+            new ModalTextBlock(5, 51, 90, 10, t(this.objective), '1.2rem', { color: 'var(--theme-vivid)' }),
+            new ModalButton(25, 81, 50, 15, t('btn_start'), this.theme, (e, m) => {
                 this.onPlay();
                 m.destroy();
             }),
@@ -210,6 +219,42 @@ export class LevelModal {
                 content.push(new ModalImage(enemyX, 62, 11, 11, enemyImg));
             });
         }
+
+        content.forEach(comp => {
+            container.appendChild(comp.render(modalInstance));
+        });
+
+        return container;
+    }
+}
+
+export class SkillsModal {
+    constructor(options = {}){
+        this.nameKey = options.nameKey || "";
+        this.descKey = options.descKey || "";
+        this.statsKey = options.statsKey || "";
+        this.onBuy = options.onBuy || (() => {});
+        this.extraComponents = options.extraComponents || [];
+        this.theme = options.theme || 'blue';
+    }
+
+    render(modalInstance){
+        modalInstance.element.classList.add(this.theme);
+        const container = document.createElement('div');
+        container.style.width = '100%';
+        container.style.height = '100%';
+        container.style.position = 'relative';
+
+        const content = [
+            new ModalTextBlock(5, 6, 90, 14, t(this.nameKey), '1.8rem', { color: 'var(--theme-vivid)' }),
+            new ModalTextBlock(5, 24, 90, 35, t(this.descKey), '1.1rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
+            new ModalTextBlock(5, 65, 90, 11.5, t(this.statsKey), '1.2rem', { color: 'var(--theme-vivid)' }),
+            new ModalButton(25, 80, 50, 15.5, t('btn_buy'), this.theme, (e, m) => {
+                this.onBuy();
+                m.destroy();
+            }),
+            ...this.extraComponents
+        ];
 
         content.forEach(comp => {
             container.appendChild(comp.render(modalInstance));

@@ -40,13 +40,20 @@ const dictionary = {
         'music_volume': 'Música',
         'language': 'Idioma',
         'logout': 'Sair',
+        'btn_start': 'Iniciar',
+        'btn_buy': 'Comprar',
 
         'level_objective1': 'Objetivo: Destrua a base inimiga.',
-        'btn_start': 'Iniciar',
+
         'f1_name': 'Vila Descolorida',
         'f1_desc': 'Uma misteriosa vila é encontrada, e seus habitantes parecem ter perdido sua cor. Qual será a razão disso?',
         'f2_name': 'Planícies Esbranquiçadas',
-        'f2_desc': 'Mesmo além da vila, parece que há muitas pessoas que perderam sua cor. Isso parece estar se espalhando.'
+        'f2_desc': 'Mesmo além da vila, parece que há muitas pessoas que perderam sua cor. Isso parece estar se espalhando.',
+
+        's1_name': 'Bola de Fogo',
+        's1_desc': 'Invoca uma bola de fogo para queimar seus inimigos.',
+        's2_name': 'Relâmpago',
+        's2_desc': 'Lança um relâmpago para dar dano médio a seus oponentes.',
     },
     'en-US': {
         'title_unnamed': 'UNNAMED',
@@ -86,13 +93,22 @@ const dictionary = {
         'music_volume': 'Music',
         'language': 'Language',
         'logout': 'Logout',
+        'btn_start': 'Start',
+        'btn_buy': 'Buy',
 
         'level_objective1': 'Objective: Destroy the enemy base.',
-        'btn_start': 'Start',
+
         'f1_name': 'Colorless Village',
         'f1_desc': 'A mysterious village is found, and the villagers there are becoming colorless. Why would this happen to them?',
         'f2_name': 'Whitened Plains',
-        'f2_desc': 'Even beyond the village, it looks like there are a lot of people missing their color. This may be spreading.'
+        'f2_desc': 'Even beyond the village, it looks like there are a lot of people missing their color. This may be spreading.',
+
+        's1_name': 'Fireball',
+        's1_desc': 'Casts a small fireball to burn your enemies. Casts a small fireball to burn your enemies. Casts a small fireball to burn your enemies. Casts a small fireball.',
+        's1_stats': 'Damage: 400 | Cost: 40 Mana | Cooldown: 10s',
+        's2_name': 'Lightning Bolt',
+        's2_desc': 'Summons a bolt of lightning dealing medium damage to your foes.',
+        's2_stats': 'Damage: 900 | Cost: 75 Mana | Cooldown: 25s',
     }
 };
 

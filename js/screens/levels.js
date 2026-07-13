@@ -1,12 +1,13 @@
 import { SpatialViewport } from '../components/viewport.js';
 import { createEdge, createNode, linkNodes, createAllNodes, attachModalToNode } from '../components/graph.js';
 import { ModalImage, LevelModal } from '../components/modal.js';
+import { GameState } from '../app.js';
 import { t } from '../i18n.js';
 
 export const LevelsScreen = () => {
     const nodes = {
-        f1: { x: 800, y: 500, w: 100, h: 100, text: t('f1_name'), type: 'red', imageUrl: 'ex.png' },
-        f2: { x: 1150, y: 500, w: 100, h: 100, text: t('f2_name'), type: 'red', imageUrl: 'ex.png' },
+        f1: { x: 800, y: 500, w: 100, h: 100, text: t('f1_name'), type: GameState.player.levels['1'] == true ? 'green' : 'red', imageUrl: 'ex.png' },
+        f2: { x: 1150, y: 500, w: 100, h: 100, text: t('f2_name'), type: GameState.player.levels['2'] == true ? 'green' : 'red', imageUrl: 'ex.png' },
     };
 
     const html = `

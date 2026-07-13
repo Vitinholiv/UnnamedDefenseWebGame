@@ -12,13 +12,15 @@ import { GameUI } from './ui.js';
 const defaultPlayer = {
     username: null,
     isAuthenticated: false,
-    levels: [],
-    units: [],
-    skills: [],
+    levels: {},
+    units: {},
+    skills: {},
+    activeUnits: {},
+    activeSkills: {},
     goldCoins: 0,
     silverCoins: 0,
     experience: 0,
-    achievements: []
+    achievements: {}
 };
 
 const defaultSettings = {

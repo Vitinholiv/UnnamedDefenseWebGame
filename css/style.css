@@ -672,7 +672,7 @@ input[type=range] {
     pointer-events: all;
 }
 
-.floating-modal.blue   { --theme-vivid: #4da6ff; --theme-strong: #2054ff; --theme-shadow: rgba(0, 123, 255, 0.15); background: rgba(10, 23, 40, 0.95); }
+.floating-modal.blue   { --theme-vivid: #5eafff; --theme-strong: #2676ff; --theme-shadow: rgba(0, 123, 255, 0.15); background: rgba(7, 18, 32, 0.95); }
 .floating-modal.green  { --theme-vivid: #38e05c; --theme-strong: #01711b; --theme-shadow: rgba(40, 167, 69, 0.15); background: rgba(13, 30, 6, 0.95); }
 .floating-modal.red    { --theme-vivid: #ff3445; --theme-strong: #a30235; --theme-shadow: rgba(220, 53, 69, 0.15); background: rgba(35, 23, 14, 0.95); }
 .floating-modal.yellow { --theme-vivid: #fbff00; --theme-strong: #d4a017; --theme-shadow: rgba(255, 193, 7, 0.15); background: rgba(25, 20, 15, 0.95); }
