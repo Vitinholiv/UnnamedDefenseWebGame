@@ -5,13 +5,6 @@ header('Content-Type: application/json');
 $config = require __DIR__ . '/autoload.php';
 $input = json_decode(file_get_contents('php://input'), true) ?? [];
 
-$secret_res = $input['secret'] ?? '';
-
-if($secret_res !== ($config['SECRET_STR'] ?? '')){
-    echo json_encode(['status' => 'error', 'message' => 'Unable to Save: Invalid Secret Key']);
-    exit;
-}
-
 if(!isset($_SESSION['user'])){
     echo json_encode(['status' => 'error', 'message' => 'Unable to Save: Not Authenticated']);
     exit;
@@ -20,7 +13,7 @@ if(!isset($_SESSION['user'])){
 $pdo = new PDO("mysql:host={$config['DB_HOST']};dbname={$config['DB_NAME']};charset=utf8mb4", $config['DB_USER'], $config['DB_PASS']);
 $playerData = $input['playerData'] ?? null;
 
-if (!$playerData) {
+if(!$playerData){
     echo json_encode(['status' => 'error', 'message' => 'Unable to Save: Invalid Data']);
     exit;
 }

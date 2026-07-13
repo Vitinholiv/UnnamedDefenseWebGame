@@ -5,13 +5,13 @@ header('Content-Type: application/json');
 $config = require __DIR__ . '/autoload.php';
 $host = $config['DB_HOST'];
 $db   = $config['DB_NAME'];
-$user = $config['DB_USER'];
+$dbUser = $config['DB_USER'];
 $pass = $config['DB_PASS'];
 $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
 
-try {
-    $pdo = new PDO($dsn, $user, $pass);
-} catch (PDOException $e){
+try{
+    $pdo = new PDO($dsn, $dbUser, $pass);
+} catch(PDOException $e){
     echo json_encode(['status' => 'error', 'message' => 'Connection Error: Unable to Access Database']);
     exit;
 }
@@ -31,18 +31,24 @@ if($action === 'register'){
     $hash = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
     $stmt->execute([$username, $hash]);
+    
+    $_SESSION['user'] = $username;
+    
     echo json_encode(['status' => 'ok', 'message' => 'Cadastro realizado.']);
+    exit;
 }
 
 if($action === 'login'){
     $stmt = $pdo->prepare("SELECT password FROM users WHERE username = ?");
     $stmt->execute([$username]);
-    $user = $stmt->fetch();
-    if($user && password_verify($password, $user['password'])){
+    $userData = $stmt->fetch();
+    
+    if($userData && password_verify($password, $userData['password'])){
         $_SESSION['user'] = $username;
         echo json_encode(['status' => 'ok', 'message' => 'Login com sucesso.']);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Login inválido.']);
     }
+    exit;
 }
 ?>

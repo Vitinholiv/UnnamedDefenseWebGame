@@ -1,5 +1,4 @@
-// js/app.js
-import { Storage } from './api.js';
+import { Storage, API } from './api.js';
 import { StartScreen } from './screens/start.js';
 import { SettingsScreen } from './screens/settings.js';
 import { LevelsScreen } from './screens/levels.js';
@@ -10,7 +9,6 @@ import { AchievementsScreen } from './screens/achievements.js';
 import { GameLayout } from './components/layout.js';
 import{ t } from './i18n.js';
 
-// Game State
 const defaultPlayer = {
     username: null,
     isAuthenticated: false,
@@ -32,38 +30,64 @@ const defaultSettings = {
 };
 
 export const GameState = {
-    player: Storage.load('playerData', { ...defaultPlayer }),
-    settings: Storage.load('gameSettings', { ...defaultSettings }),
+    player: null,
+    settings: null,
 
-    saveLocal: function(){
-        Storage.save('playerData', this.player);
-        Storage.save('gameSettings', this.settings);
+    boot(){
+        const lastUser = localStorage.getItem('unnamed_defense_lastUser');
+        if(lastUser){
+            this.init(lastUser);
+        }
+    },
+
+    init(username){
+        this.player = Storage.load('playerData', { ...defaultPlayer }, username);
+        this.settings = Storage.load('gameSettings', { ...defaultSettings }, username);
     },
 
     isLoggedIn: function(){
         return Boolean(this.player?.username && this.player?.isAuthenticated);
     },
 
-    setUser: function(username){
-        this.player.username = username;
-        this.player.isAuthenticated = true;
-        this.saveLocal();
+    clearSession: function(){
+        if(this.player){
+            this.player.username = null;
+            this.player.isAuthenticated = false;
+            this.saveLocal();
+        }
+        localStorage.removeItem('unnamed_defense_lastUser');
     },
 
-    clearSession: function(){
-        this.player.username = null;
-        this.player.isAuthenticated = false;
-        this.saveLocal();
+    async logout(){
+        if(this.isLoggedIn()){
+            await API.save();
+        }
+        this.clearSession();
+        navigateTo('start');
     },
 
     update(data){
         if(!data || typeof data !== 'object') return;
         this.player = { ...this.player, ...data };
         this.saveLocal();
+    },
+
+    saveLocal: function(){
+        if(this.player && this.player.username){
+            Storage.save('playerData', this.player, this.player.username);
+            Storage.save('gameSettings', this.settings, this.player.username);
+        }
+    },
+    
+    setUser: function(username){
+        localStorage.setItem('unnamed_defense_lastUser', username);
+        this.init(username);
+        this.player.username = username;
+        this.player.isAuthenticated = true;
+        this.saveLocal();
     }
 };
 
-// Page Navigation
 const appContainer = document.getElementById('game-app');
 export const navigateTo = (screenName) => {
     appContainer.innerHTML = '';
@@ -89,7 +113,6 @@ export const navigateTo = (screenName) => {
 window.GameState = GameState;
 window.navigateTo = navigateTo;
 
-// Authentication
 const authFetch = async (action, data) => {
     const response = await fetch('api/auth.php', {
         method: 'POST',
@@ -105,16 +128,21 @@ window.handleStartLogin = async () => {
 
     if(!username || !password) return;
 
-    try {
+    try{
         const result = await authFetch('login', { username, password });
         if(result.status === 'ok'){
             GameState.setUser(username);
+            await API.load();
+            globalVisualSync();
             window.navigateTo('levels');
         } else {
             GameState.clearSession();
             GameUI.showAlert(result.message);
         }
-    } catch (e){ GameState.clearSession(); GameUI.showAlert('[Login]: Erro ao se conectar.'); }
+    } catch(e){ 
+        GameState.clearSession(); 
+        GameUI.showAlert('[Login]: Erro ao conectar.'); 
+    }
 };
 
 window.handleStartRegister = async () => {
@@ -124,19 +152,22 @@ window.handleStartRegister = async () => {
 
     if(!username || !password || password !== repeat) return;
 
-    try {
+    try{
         const result = await authFetch('register', { username, password });
         if(result.status === 'ok'){
             GameState.setUser(username);
+            await API.save();
             window.navigateTo('levels');
         } else {
             GameState.clearSession();
             GameUI.showAlert(result.message);
         }
-    } catch (e){ GameState.clearSession(); GameUI.showAlert('[Registro]: Erro ao se conectar.'); }
+    } catch(e){ 
+        GameState.clearSession(); 
+        GameUI.showAlert('[Registro]: Erro ao conectar.'); 
+    }
 };
 
-// UI
 export const GameUI = {
     showAlert(message, type = 'error'){
         let overlay = document.getElementById('game-alert-overlay');
@@ -222,5 +253,17 @@ export const globalVisualSync = () => {
 };
 window.globalVisualSync = globalVisualSync;
 
-// Init
+setInterval(() => {
+    if(GameState.isLoggedIn()){
+        API.save();
+    }
+}, 180000);
+
+window.addEventListener('beforeunload', () => {
+    if(GameState.isLoggedIn()){
+        API.save();
+    }
+});
+
+GameState.boot();
 navigateTo(GameState.isLoggedIn() ? 'levels' : 'start');

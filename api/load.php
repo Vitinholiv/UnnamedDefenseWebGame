@@ -3,14 +3,6 @@ session_start();
 header('Content-Type: application/json');
 
 $config = require __DIR__ . '/autoload.php';
-$input = json_decode(file_get_contents('php://input'), true) ?? [];
-
-$secret_res = $input['secret'] ?? '';
-
-if($secret_res !== ($config['SECRET_STR'] ?? '')){
-    echo json_encode(['status' => 'error', 'message' => 'Unable to Load: Invalid Secret Key']);
-    exit;
-}
 
 if(!isset($_SESSION['user'])){
     echo json_encode(['status' => 'error', 'message' => 'Unable to Load: Not Authenticated']);
