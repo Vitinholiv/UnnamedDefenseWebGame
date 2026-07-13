@@ -1,3 +1,4 @@
+// js/screens/battle.js
 export const BattleScreen = () => {
     return `
         <div class="screen battle-screen">

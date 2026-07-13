@@ -74,7 +74,7 @@ export class ModalButton extends ModalComponent {
         btn.style.padding = '0';
         btn.innerText = this.text;
 
-        if (this.disabled) {
+        if(this.disabled){
             btn.disabled = true;
             btn.style.cursor = 'not-allowed';
         } else {
@@ -101,7 +101,7 @@ export class ModalTextBlock extends ModalComponent {
         this.applyBaseStyles(textBlock);
         
         textBlock.style.color = this.customStyles.color || '#c5c6c7';
-        textBlock.style.fontFamily = "'Rajdhani', sans-serif";
+        textBlock.style.fontFamily = "'Orbitron', sans-serif";
         textBlock.style.fontSize = this.fontSize;
         textBlock.style.textAlign = 'justify';
         textBlock.style.overflow = 'hidden';
@@ -148,7 +148,7 @@ export class FloatingModal {
         this.element.style.height = `${this.height}px`;
 
         this.outsideClickListener = (e) => {
-            if(!this.element.contains(e.target)) {
+            if(!this.element.contains(e.target)){
                 this.destroy();
             }
         };
@@ -203,11 +203,11 @@ export class LevelModal {
         container.style.position = 'relative';
 
         const content = [
-            new ModalTextBlock(5, 5, 90, 10, t(this.nameKey), '1.8rem', { color: 'var(--theme-vivid)' }),
-            new ModalTextBlock(5, 20, 90, 25, t(this.descKey), '1.1rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
-            new ModalTextBlock(5, 51, 90, 10, t(this.objective), '1.2rem', { color: 'var(--theme-vivid)' }),
+            new ModalTextBlock(5, 5, 90, 10, t(this.nameKey), '1.4rem', { color: 'var(--theme-vivid)' }),
+            new ModalTextBlock(5, 20, 90, 30, t(this.descKey), '1.0rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
+            new ModalTextBlock(5, 54, 90, 10, t(this.objective), '1.1rem', { color: 'var(--theme-vivid)' }),
             new ModalButton(25, 81, 50, 15, t('btn_start'), this.theme, (e, m) => {
-                this.onPlay();
+                this.onPlay(e);
                 m.destroy();
             }),
             ...this.extraComponents
@@ -230,9 +230,11 @@ export class LevelModal {
 
 export class SkillsModal {
     constructor(options = {}){
+        this.skillId = options.skillId || "";
         this.nameKey = options.nameKey || "";
         this.descKey = options.descKey || "";
         this.statsKey = options.statsKey || "";
+        this.price = options.price || "0";
         this.onBuy = options.onBuy || (() => {});
         this.extraComponents = options.extraComponents || [];
         this.theme = options.theme || 'blue';
@@ -245,14 +247,19 @@ export class SkillsModal {
         container.style.height = '100%';
         container.style.position = 'relative';
 
+        const isPurchased = this.skillId && GameState.player.skills[this.skillId] === true;
+        const btnText = isPurchased ? (t('btn_purchased') || 'COMPRADO') : t('btn_buy');
+        const btnTheme = isPurchased ? 'locked' : this.theme;
+
         const content = [
-            new ModalTextBlock(5, 6, 90, 14, t(this.nameKey), '1.8rem', { color: 'var(--theme-vivid)' }),
-            new ModalTextBlock(5, 24, 90, 35, t(this.descKey), '1.1rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
-            new ModalTextBlock(5, 65, 90, 11.5, t(this.statsKey), '1.2rem', { color: 'var(--theme-vivid)' }),
-            new ModalButton(25, 80, 50, 15.5, t('btn_buy'), this.theme, (e, m) => {
-                this.onBuy();
+            new ModalTextBlock(5, 6, 90, 14, t(this.nameKey), '1.4rem', { color: 'var(--theme-vivid)' }),
+            new ModalTextBlock(5, 24, 90, 36, t(this.descKey), '0.95rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
+            new ModalTextBlock(5, 66, 90, 12, `${t(this.statsKey)} ${this.price}🟡`, '0.8rem', { color: 'var(--theme-vivid)' }),
+            new ModalButton(25, 80, 50, 16, btnText, btnTheme, (e, m) => {
+                this.onBuy(e);
                 m.destroy();
-            }),
+            }, isPurchased),
+            
             ...this.extraComponents
         ];
 

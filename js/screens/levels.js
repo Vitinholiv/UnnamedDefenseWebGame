@@ -1,3 +1,4 @@
+// js/screens/levels.js
 import { SpatialViewport } from '../components/viewport.js';
 import { createEdge, createNode, linkNodes, createAllNodes, attachModalToNode } from '../components/graph.js';
 import { ModalImage, LevelModal } from '../components/modal.js';
@@ -11,7 +12,7 @@ export const LevelsScreen = () => {
     };
 
     const html = `
-        <div id="campaign-map" style="width: 100%; height: 100%;">
+        <div id="campaign-map" class="nav-world-loading" style="width: 100%; height: 100%;">
             ${createAllNodes(nodes)}
             ${linkNodes(nodes.f1,nodes.f2,'yellow')}
         </div>
@@ -22,7 +23,6 @@ export const LevelsScreen = () => {
             worldWidth: 4000,
             worldHeight: 2000,
             zoomMax: 4,
-            zoomSpeed: 0.2,
         });
 
         attachModalToNode('#f1', {

@@ -1,5 +1,4 @@
 // js/components/viewport.js
-
 export class SpatialViewport {
     constructor(containerSelector, options = {}){
         this.viewport = typeof containerSelector === 'string' ? document.querySelector(containerSelector) : containerSelector;        
@@ -9,7 +8,7 @@ export class SpatialViewport {
             worldWidth: options.worldWidth || 1600,
             worldHeight: options.worldHeight || 732,
             zoomMax: options.zoomMax || 3.0,
-            zoomSpeed: options.zoomSpeed || 0.1,
+            zoomSpeed: options.zoomSpeed || 0.3,
             zoomMin: 1.0
         };
 
@@ -50,6 +49,11 @@ export class SpatialViewport {
 
         this.state.x = (rect.width - scaledWidth) / 2;
         this.state.y = (rect.height - scaledHeight) / 2;
+
+        this.viewport.classList.remove('nav-world-loading');
+        requestAnimationFrame(() => {
+            this.world.classList.add('ready');
+        });
     }
 
     updateTransform(){

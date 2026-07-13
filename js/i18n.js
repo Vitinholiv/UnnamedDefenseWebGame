@@ -42,6 +42,7 @@ const dictionary = {
         'logout': 'Sair',
         'btn_start': 'Iniciar',
         'btn_buy': 'Comprar',
+        'btn_purchased': 'Comprado',
 
         'level_objective1': 'Objetivo: Destrua a base inimiga.',
 
@@ -52,8 +53,10 @@ const dictionary = {
 
         's1_name': 'Bola de Fogo',
         's1_desc': 'Invoca uma bola de fogo para queimar seus inimigos.',
+        's1_stats': 'Poder: 400 | Mana: 40 | Recarga: 10s | Custo: ',
         's2_name': 'Relâmpago',
         's2_desc': 'Lança um relâmpago para dar dano médio a seus oponentes.',
+        's2_stats': 'Poder: 900 | Mana: 75 | Recarga: 25s | Custo: ',
     },
     'en-US': {
         'title_unnamed': 'UNNAMED',
@@ -95,6 +98,7 @@ const dictionary = {
         'logout': 'Logout',
         'btn_start': 'Start',
         'btn_buy': 'Buy',
+        'btn_purchased': 'Bought',
 
         'level_objective1': 'Objective: Destroy the enemy base.',
 
@@ -105,17 +109,17 @@ const dictionary = {
 
         's1_name': 'Fireball',
         's1_desc': 'Casts a small fireball to burn your enemies. Casts a small fireball to burn your enemies. Casts a small fireball to burn your enemies. Casts a small fireball.',
-        's1_stats': 'Damage: 400 | Cost: 40 Mana | Cooldown: 10s',
+        's1_stats': 'Power: 400 | Mana: 40 | Cooldown: 10s | Cost: ',
         's2_name': 'Lightning Bolt',
         's2_desc': 'Summons a bolt of lightning dealing medium damage to your foes.',
-        's2_stats': 'Damage: 900 | Cost: 75 Mana | Cooldown: 25s',
+        's2_stats': 'Power: 900 | Mana: 75 | Cooldown: 25s | Cost: ',
     }
 };
 
 export const t = (key) => {
     const lang = GameState.settings?.language || 'pt-BR';
-    if (!dictionary[lang] || !dictionary[lang][key]) {
-        console.warn(`[i18n] Tradução faltando para: [${lang}] ${key}`);
+    if(!dictionary[lang] || !dictionary[lang][key]){
+        console.warn(`[i18n.js] Tradução faltando para: [${lang}] ${key}`);
         return dictionary['pt-BR'][key] || key;
     }
     return dictionary[lang][key];

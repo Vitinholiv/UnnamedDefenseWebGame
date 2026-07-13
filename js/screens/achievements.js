@@ -1,3 +1,4 @@
+// js/screens/achievements.js
 export const AchievementsScreen = () => {
     return `
         <div class="screen achievements-screen">

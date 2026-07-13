@@ -536,11 +536,20 @@ input[type=range] {
     position: absolute;
     top: 0;
     left: 0;
+    opacity: 0;
     transform-origin: 0 0;
     background-image: 
         linear-gradient(rgba(160, 160, 160, 0.1) 1px, transparent 1px),
         linear-gradient(90deg, rgba(160, 160, 160, 0.1) 1px, transparent 1px);
     background-size: 50px 50px;
+}
+
+.nav-world-loading, .invisible {
+    opacity: 0 !important;
+}
+
+.nav-world.ready {
+    opacity: 1;
 }
 
 .nav-node {
@@ -708,6 +717,42 @@ input[type=range] {
 .modal-close-btn:hover {
     color: #ff4655;
 }
+
+.bought-particle {
+    position: fixed;
+    z-index: 20000;
+    color: #fbff00;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    pointer-events: none;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 0, 0, 0.8);
+    animation: flyUpAndFade 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.poor-particle {
+    position: fixed;
+    z-index: 20000;
+    color: #ff4655;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    pointer-events: none;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 0, 0, 0.8);
+    animation: flyUpAndFade 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes flyUpAndFade {
+    0% {
+        transform: translate(-50%, -50%) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) translateY(-50px);
+        opacity: 0;
+    }
+}
+
 
 @media (orientation: portrait){
     body {

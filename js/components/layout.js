@@ -1,3 +1,4 @@
+// js/components/layout.js
 import { GameState } from '../app.js';
 import { t } from '../i18n.js';
 
