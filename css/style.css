@@ -653,23 +653,42 @@ input[type=range] {
     top: 50%;
     left: 50%;
     z-index: 10000;
-    background: rgba(25, 20, 15, 0.95);
-    border: 1px solid #f7c934;
-    border-top: 4px solid #f7c934;
+    background: rgba(15, 20, 25, 0.95);
+    border: 1px solid #a0a0a0;
+    border-top: 4px solid #a0a0a0;
     border-radius: 4px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(160, 160, 160, 0.15);
     backdrop-filter: blur(5px);
     
     transform: translate(-50%, -45%) scale(0.95);
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, border-color 0.3s ease;
 }
 
 .floating-modal.active {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
     pointer-events: all;
+}
+
+.floating-modal.blue   { --theme-vivid: #4da6ff; --theme-strong: #2054ff; --theme-shadow: rgba(0, 123, 255, 0.15); background: rgba(10, 23, 40, 0.95); }
+.floating-modal.green  { --theme-vivid: #38e05c; --theme-strong: #01711b; --theme-shadow: rgba(40, 167, 69, 0.15); background: rgba(13, 30, 6, 0.95); }
+.floating-modal.red    { --theme-vivid: #ff3445; --theme-strong: #a30235; --theme-shadow: rgba(220, 53, 69, 0.15); background: rgba(35, 23, 14, 0.95); }
+.floating-modal.yellow { --theme-vivid: #fbff00; --theme-strong: #d4a017; --theme-shadow: rgba(255, 193, 7, 0.15); background: rgba(25, 20, 15, 0.95); }
+.floating-modal.orange { --theme-vivid: #f38226; --theme-strong: #be4c00; --theme-shadow: rgba(253, 126, 20, 0.15); background: rgba(27, 15, 3, 0.95); }
+.floating-modal.purple { --theme-vivid: #9662f7; --theme-strong: #6a05f8; --theme-shadow: rgba(111, 66, 193, 0.15); background: rgba(16, 4, 21, 0.95); }
+.floating-modal.cyan   { --theme-vivid: #6ceeff; --theme-strong: #0c97a9; --theme-shadow: rgba(23, 162, 184, 0.15); background: rgba(9, 28, 23, 0.95);}
+.floating-modal.white  { --theme-vivid: #ffffff; --theme-strong: #a7a7a7; --theme-shadow: rgba(255, 255, 255, 0.15); background: rgba(50, 50, 50, 0.95); }
+.floating-modal.grey   { --theme-vivid: #818b93; --theme-strong: #5e687a; --theme-shadow: rgba(130, 133, 136, 0.15); background: rgba(20, 20, 20, 0.95); }
+
+.floating-modal[class*=" "] {
+    border-color: var(--theme-strong);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--theme-shadow);
+}
+
+.floating-modal .game-btn {
+    background-color: var(--theme-strong) !important;
 }
 
 .modal-close-btn {
