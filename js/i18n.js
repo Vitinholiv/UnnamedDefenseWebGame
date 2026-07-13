@@ -3,7 +3,6 @@ import { GameState } from './app.js';
 
 const dictionary = {
     'pt-BR': {
-        // Tela Inicial
         'title_unnamed': 'UNNAMED',
         'title_defense': 'TOWER DEFENSE',
         'login_title': 'Acessar Conta',
@@ -20,34 +19,36 @@ const dictionary = {
         'reg_btn': 'CADASTRAR',
         'reg_toggle': 'Já é veterano? <span>Voltar ao Login.</span>',
         
-        // Alertas
         'err_connect': 'Falha na comunicação com o servidor.',
         'err_fields': 'Preencha todos os campos corretamente.',
         'alert_error_title': 'Erro',
         'alert_info_title': 'Aviso',
         'alert_btn_ok': 'OK',
 
-        // Títulos das Telas
         'title_levels': 'CAMPANHA',
         'title_units': 'UNIDADES',
         'title_skills': 'HABILIDADES',
         'title_achievements': 'CONQUISTAS',
         'title_settings': 'CONFIGURAÇÕES',
         
-        // Menu de Navegação Inferior
         'nav_campaign': 'CAMPANHA',
         'nav_units': 'UNIDADES',
         'nav_skills': 'HABILIDADES',
         'nav_achievements': 'CONQUISTAS',
 
-        // Configurações
         'sfx_volume': 'Efeitos Sonoros',
         'music_volume': 'Música',
         'language': 'Idioma',
         'logout': 'Sair',
+
+        'level_objective1': 'Objetivo: Destrua a base inimiga.',
+        'btn_start': 'Iniciar',
+        'f1_name': 'Vila Descolorida',
+        'f1_desc': 'Uma misteriosa vila é encontrada, e seus habitantes parecem ter perdido sua cor. Qual será a razão disso?',
+        'f2_name': 'Planícies Esbranquiçadas',
+        'f2_desc': 'Mesmo além da vila, parece que há muitas pessoas que perderam sua cor. Isso parece estar se espalhando.'
     },
     'en-US': {
-        // Start Screen
         'title_unnamed': 'UNNAMED',
         'title_defense': 'TOWER DEFENSE',
         'login_title': 'Access Account',
@@ -64,37 +65,37 @@ const dictionary = {
         'reg_btn': 'REGISTER',
         'reg_toggle': 'Already a veteran? <span>Return to Login.</span>',
         
-        // Alerts
         'err_connect': 'Failed to communicate with the server.',
         'err_fields': 'Please fill all fields correctly.',
         'alert_error_title': 'Error',
         'alert_info_title': 'Warning',
         'alert_btn_ok': 'OK',
 
-        // Screen Titles
         'title_levels': 'CAMPAIGN',
         'title_units': 'UNITS',
         'title_skills': 'SKILLS',
         'title_achievements': 'ACHIEVEMENTS',
         'title_settings': 'SETTINGS',
         
-        // Bottom Menu Navigation
         'nav_campaign': 'CAMPAIGN',
         'nav_units': 'UNITS',
         'nav_skills': 'SKILLS',
         'nav_achievements': 'ACHIEVEMENTS',
 
-        // Settings
         'sfx_volume': 'Sound Effects',
         'music_volume': 'Music',
         'language': 'Language',
-        'logout': 'Logout'
+        'logout': 'Logout',
+
+        'level_objective1': 'Objective: Destroy the enemy base.',
+        'btn_start': 'Start',
+        'f1_name': 'Colorless Village',
+        'f1_desc': 'A mysterious village is found, and the villagers there are becoming colorless. Why would this happen to them?',
+        'f2_name': 'Whitened Plains',
+        'f2_desc': 'Even beyond the village, it looks like there are a lot of people missing their color. This may be spreading.'
     }
 };
 
-/*
-    Função global de tradução.
-*/
 export const t = (key) => {
     const lang = GameState.settings?.language || 'pt-BR';
     if (!dictionary[lang] || !dictionary[lang][key]) {

@@ -1,9 +1,8 @@
-// js/components/layout.js
 import { GameState } from '../app.js';
 import { t } from '../i18n.js';
 
 const getXpForLevel = (lvl) => {
-    if (lvl >= 99) return 10000;
+    if(lvl >= 99) return 10000;
     const minXp = 100;
     const maxXp = 10000;
     const val = minXp + (lvl - 1) * ((maxXp - minXp) / 98);
@@ -15,11 +14,11 @@ const getPlayerLevelInfo = (totalXp) => {
     let currentXp = totalXp;
     let level = 1;
 
-    while (currentXp >= getXpForLevel(level) && level < 99) {
+    while(currentXp >= getXpForLevel(level) && level < 99){
         currentXp -= getXpForLevel(level);
         level++;
     }
-    if (level >= 99) {
+    if(level >= 99){
         level = 99;
         currentXp = 10000;
     }
@@ -34,7 +33,7 @@ export const GameLayout = (contentHTML, currentScreen) => {
     const { level, xpPercent } = getPlayerLevelInfo(player.experience || 0);
     const isLoggedIn = GameState.isLoggedIn();
 
-    if (!isLoggedIn) {
+    if(!isLoggedIn){
         return `
             <div class="standalone-wrapper">
                 <button class="back-btn" onclick="navigateTo('start')">← ${t('back')}</button>
@@ -75,8 +74,7 @@ export const GameLayout = (contentHTML, currentScreen) => {
 
                 <div class="top-right">
                     <button class="settings-btn" onclick="navigateTo('settings')">
-                        <!-- Ícone SVG de engrenagem simples -->
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#66fcf1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     </button>
                 </div>
             </header>

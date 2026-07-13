@@ -1,4 +1,6 @@
-// Base Component para os elementos internos do modal
+//js/components/modal.js
+import { t } from '../i18n.js';
+
 class ModalComponent {
     constructor(x, y, w, h){
         this.x = x;
@@ -26,12 +28,22 @@ export class ModalImage extends ModalComponent {
         const wrapper = document.createElement('div');
         wrapper.classList.add('nav-node-img-wrapper');
         this.applyBaseStyles(wrapper);
+        
         wrapper.style.boxShadow = 'none';
+        wrapper.style.borderRadius = '0';
+        wrapper.style.border = 'none';
+        wrapper.style.backgroundColor = 'transparent';
+        
+        wrapper.style.height = 'auto';
+        wrapper.style.aspectRatio = '1 / 1';
 
         const img = document.createElement('img');
         img.src = this.src;
         img.classList.add('nav-node-img');
         img.style.objectFit = 'contain';
+        img.style.borderRadius = '0';
+        img.style.width = '100%';
+        img.style.height = '100%';
 
         wrapper.appendChild(img);
         return wrapper;
@@ -70,23 +82,31 @@ export class ModalButton extends ModalComponent {
 }
 
 export class ModalTextBlock extends ModalComponent {
-    constructor(x, y, w, h, text, fontSize = '1rem'){
+    constructor(x, y, w, h, text, fontSize = '1rem', customStyles = {}){
         super(x, y, w, h);
         this.text = text;
         this.fontSize = fontSize;
+        this.customStyles = customStyles;
     }
 
     render(){
         const textBlock = document.createElement('div');
         this.applyBaseStyles(textBlock);
         
-        textBlock.style.color = '#c5c6c7';
+        textBlock.style.color = this.customStyles.color || '#c5c6c7';
         textBlock.style.fontFamily = "'Rajdhani', sans-serif";
         textBlock.style.fontSize = this.fontSize;
         textBlock.style.textAlign = 'justify';
         textBlock.style.overflow = 'hidden';
         textBlock.style.textOverflow = 'ellipsis';
         textBlock.style.lineHeight = '1.4';
+
+        if(this.customStyles.border){
+            textBlock.style.border = this.customStyles.border;
+            textBlock.style.borderRadius = '0';
+            textBlock.style.padding = '5px';
+            textBlock.style.boxSizing = 'border-box';
+        }
         
         textBlock.innerText = this.text;
         return textBlock;
@@ -121,7 +141,7 @@ export class FloatingModal {
         this.element.style.height = `${this.height}px`;
 
         this.outsideClickListener = (e) => {
-            if (!this.element.contains(e.target)) {
+            if(!this.element.contains(e.target)) {
                 this.destroy();
             }
         };
@@ -150,9 +170,51 @@ export class FloatingModal {
         document.removeEventListener('click', this.outsideClickListener);
         this.element.classList.remove('active');
         setTimeout(() => {
-            if (this.element && this.element.parentNode){
+            if(this.element && this.element.parentNode){
                 this.element.parentNode.removeChild(this.element);
             }
         }, 200);
+    }
+}
+
+export class LevelModal {
+    constructor(options = {}){
+        this.nameKey = options.nameKey || "";
+        this.descKey = options.descKey || "";
+        this.enemies = options.enemies || [];
+        this.objective = `level_objective${options.objective || 1}`;
+        this.onPlay = options.onPlay || (() => {});
+        this.extraComponents = options.extraComponents || [];
+    }
+
+    render(modalInstance){
+        const container = document.createElement('div');
+        container.style.width = '100%';
+        container.style.height = '100%';
+        container.style.position = 'relative';
+
+        const content = [
+            new ModalTextBlock(5, 5, 90, 10, t(this.nameKey), '1.8rem', { color: '#f7ff03' }),
+            new ModalTextBlock(5, 20, 90, 25, t(this.descKey), '1.1rem', { border: '1px solid #ffffff', color: '#ffa220' }),
+            new ModalTextBlock(5, 51, 90, 10, t(this.objective), '1.2rem', { color: '#f7ff03' }),
+            new ModalButton(25, 81, 50, 15, t('btn_start'), 'yellow', (e, m) => {
+                this.onPlay();
+                m.destroy();
+            }),
+            ...this.extraComponents
+        ];
+
+        if(this.enemies && this.enemies.length > 0){
+            this.enemies.forEach((enemyImg, index) => {
+                const enemyX = 5 + (index * 13);
+                content.push(new ModalImage(enemyX, 62, 11, 11, enemyImg));
+            });
+        }
+
+        content.forEach(comp => {
+            container.appendChild(comp.render(modalInstance));
+        });
+
+        return container;
     }
 }
