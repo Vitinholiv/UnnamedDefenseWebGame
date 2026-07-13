@@ -8,6 +8,7 @@ import { BattleScreen } from './screens/battle.js';
 import { AchievementsScreen } from './screens/achievements.js';
 import { GameLayout } from './components/layout.js';
 import{ t } from './i18n.js';
+import { SkillsData } from './components/data.js';
 
 const defaultPlayer = {
     username: null,
@@ -213,12 +214,11 @@ export const globalVisualSync = () => {
     const skillNodes = document.querySelectorAll('.nav-node[id^="s"]');
     skillNodes.forEach(node => {
         const skillId = node.id.replace('s', '');
-
         if(GameState.player.skills && skillId in GameState.player.skills){
             const isPurchased = GameState.player.skills[skillId] === true;
-            const targetClass = isPurchased ? 'green' : 'red'; 
+            const targetClass = isPurchased ? 'green' : GameState.player.goldCoins >= SkillsData[`${skillId}`].price ? 'yellow' : 'red'; 
             if(!node.classList.contains(targetClass)){
-                node.classList.remove('red', 'green');
+                node.classList.remove('red', 'green', 'yellow');
                 node.classList.add(targetClass);
                 const innerBtn = node.querySelector('.game-btn');
                 if(innerBtn){

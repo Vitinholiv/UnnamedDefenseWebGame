@@ -5,12 +5,13 @@ import { ModalImage, SkillsModal } from '../components/modal.js';
 import { AudioController } from '../audio.js';
 import { EffectsController } from '../effects.js';
 import { GameState } from '../app.js';
+import { SkillsData } from '../components/data.js';
 import { t } from '../i18n.js';
 
 export const SkillsScreen = () => {
     const nodes = {
-        s1: { x: 800, y: 500, w: 100, h: 100, price: 25, text: t('s1_name'), type: GameState.player.skills['1'] == true ? 'green' : 'red', imageUrl: 'ex.png' },
-        s2: { x: 1150, y: 500, w: 100, h: 100, price: 70, text: t('s2_name'), type: GameState.player.skills['2'] == true ? 'green' : 'red', imageUrl: 'ex.png' },
+        s1: { x: 800, y: 500, w: 100, h: 100, price: SkillsData['1'].price, text: t('s1_name'), type: GameState.player.skills['1'] == true ? 'green' : GameState.player.goldCoins >= SkillsData['1'].price ? 'yellow' : 'red', imageUrl: 'ex.png' },
+        s2: { x: 1150, y: 500, w: 100, h: 100, price: SkillsData['2'].price, text: t('s2_name'), type: GameState.player.skills['2'] == true ? 'green' : GameState.player.goldCoins >= SkillsData['2'].price ? 'yellow' : 'red', imageUrl: 'ex.png' },
     };
 
     let buyfunc = (x) => {
@@ -53,7 +54,6 @@ export const SkillsScreen = () => {
                     skillId: '1',
                     nameKey: 's1_name',
                     descKey: 's1_desc',
-                    statsKey: 's1_stats',
                     price: nodes.s1.price,
                     theme: 'blue',
                     onBuy: buyfunc(1),
@@ -69,7 +69,6 @@ export const SkillsScreen = () => {
                     skillId: '2',
                     nameKey: 's2_name',
                     descKey: 's2_desc',
-                    statsKey: 's2_stats',
                     price: nodes.s2.price,
                     theme: 'blue',
                     onBuy: buyfunc(2),

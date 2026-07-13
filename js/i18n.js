@@ -1,5 +1,6 @@
 // js/i18n.js
 import { GameState } from './app.js';
+import { SkillsData } from './components/data.js';
 
 const dictionary = {
     'pt-BR': {
@@ -51,12 +52,12 @@ const dictionary = {
         'f2_name': 'Planícies Esbranquiçadas',
         'f2_desc': 'Mesmo além da vila, parece que há muitas pessoas que perderam sua cor. Isso parece estar se espalhando.',
 
+        'skill_stats': (x) => `Poder: ${SkillsData[`${x}`].power} | Mana: ${SkillsData[`${x}`].mana} | Recarga: ${SkillsData[`${x}`].cooldown}s | Custo: ${SkillsData[`${x}`].price}🟡`,
+
         's1_name': 'Bola de Fogo',
         's1_desc': 'Invoca uma bola de fogo para queimar seus inimigos.',
-        's1_stats': 'Poder: 400 | Mana: 40 | Recarga: 10s | Custo: ',
         's2_name': 'Relâmpago',
         's2_desc': 'Lança um relâmpago para dar dano médio a seus oponentes.',
-        's2_stats': 'Poder: 900 | Mana: 75 | Recarga: 25s | Custo: ',
     },
     'en-US': {
         'title_unnamed': 'UNNAMED',
@@ -107,20 +108,20 @@ const dictionary = {
         'f2_name': 'Whitened Plains',
         'f2_desc': 'Even beyond the village, it looks like there are a lot of people missing their color. This may be spreading.',
 
+        'skill_stats': (x) => `Power: ${SkillsData[`${x}`].power} | Mana: ${SkillsData[`${x}`].mana} | Cooldown: ${SkillsData[`${x}`].cooldown}s | Cost: ${SkillsData[`${x}`].price}🟡`,
+
         's1_name': 'Fireball',
         's1_desc': 'Casts a small fireball to burn your enemies. Casts a small fireball to burn your enemies. Casts a small fireball to burn your enemies. Casts a small fireball.',
-        's1_stats': 'Power: 400 | Mana: 40 | Cooldown: 10s | Cost: ',
         's2_name': 'Lightning Bolt',
         's2_desc': 'Summons a bolt of lightning dealing medium damage to your foes.',
-        's2_stats': 'Power: 900 | Mana: 75 | Cooldown: 25s | Cost: ',
     }
 };
 
-export const t = (key) => {
+export const t = (key, aux = '') => {
     const lang = GameState.settings?.language || 'pt-BR';
     if(!dictionary[lang] || !dictionary[lang][key]){
         console.warn(`[i18n.js] Tradução faltando para: [${lang}] ${key}`);
         return dictionary['pt-BR'][key] || key;
     }
-    return dictionary[lang][key];
+    return aux != '' ? dictionary[lang][key](aux) : dictionary[lang][key];
 };

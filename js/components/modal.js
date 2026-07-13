@@ -233,7 +233,6 @@ export class SkillsModal {
         this.skillId = options.skillId || "";
         this.nameKey = options.nameKey || "";
         this.descKey = options.descKey || "";
-        this.statsKey = options.statsKey || "";
         this.price = options.price || "0";
         this.onBuy = options.onBuy || (() => {});
         this.extraComponents = options.extraComponents || [];
@@ -248,13 +247,13 @@ export class SkillsModal {
         container.style.position = 'relative';
 
         const isPurchased = this.skillId && GameState.player.skills[this.skillId] === true;
-        const btnText = isPurchased ? (t('btn_purchased') || 'COMPRADO') : t('btn_buy');
+        const btnText = isPurchased ? (t('btn_purchased')) : t('btn_buy');
         const btnTheme = isPurchased ? 'locked' : this.theme;
 
         const content = [
             new ModalTextBlock(5, 6, 90, 14, t(this.nameKey), '1.4rem', { color: 'var(--theme-vivid)' }),
             new ModalTextBlock(5, 24, 90, 36, t(this.descKey), '0.95rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
-            new ModalTextBlock(5, 66, 90, 12, `${t(this.statsKey)} ${this.price}🟡`, '0.8rem', { color: 'var(--theme-vivid)' }),
+            new ModalTextBlock(5, 66, 90, 12, `${t('skill_stats',this.skillId)}`, '0.8rem', { color: 'var(--theme-vivid)' }),
             new ModalButton(25, 80, 50, 16, btnText, btnTheme, (e, m) => {
                 this.onBuy(e);
                 m.destroy();
