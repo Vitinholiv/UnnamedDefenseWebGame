@@ -214,17 +214,40 @@ export const globalVisualSync = () => {
     const skillNodes = document.querySelectorAll('.nav-node[id^="s"]');
     skillNodes.forEach(node => {
         const skillId = node.id.replace('s', '');
-        if(GameState.player.skills && skillId in GameState.player.skills){
-            const isPurchased = GameState.player.skills[skillId] === true;
-            const targetClass = isPurchased ? 'green' : GameState.player.goldCoins >= SkillsData[`${skillId}`].price ? 'yellow' : 'red'; 
-            if(!node.classList.contains(targetClass)){
-                node.classList.remove('red', 'green', 'yellow');
-                node.classList.add(targetClass);
-                const innerBtn = node.querySelector('.game-btn');
-                if(innerBtn){
-                    innerBtn.style.backgroundColor = ''; 
+        const prevId = node.getAttribute('prev');
+
+        let isVisible = true;
+        if (prevId && prevId !== '0') {
+            isVisible = GameState.player.skills && GameState.player.skills[prevId] === true;
+        }
+
+        if (!isVisible) {
+            node.style.display = 'none';
+        } else {
+            node.style.display = '';
+            if(GameState.player.skills && skillId in GameState.player.skills){
+                const isPurchased = GameState.player.skills[skillId] === true;
+                const canAfford = GameState.player.goldCoins >= SkillsData[`${skillId}`].price;
+                const targetClass = isPurchased ? 'green' : (canAfford ? 'yellow' : 'red'); 
+                
+                if(!node.classList.contains(targetClass)){
+                    node.classList.remove('red', 'green', 'yellow');
+                    node.classList.add(targetClass);
+                    const innerBtn = node.querySelector('.game-btn');
+                    if(innerBtn){
+                        innerBtn.style.backgroundColor = ''; 
+                    }
                 }
             }
+        }
+    });
+
+    const edges = document.querySelectorAll('.nav-edge');
+    edges.forEach(edge => {
+        const fromId = edge.getAttribute('from'); 
+        if (fromId) {
+            const isSourcePurchased = GameState.player.skills && GameState.player.skills[fromId] === true;
+            edge.style.display = isSourcePurchased ? '' : 'none';
         }
     });
 
@@ -234,12 +257,11 @@ export const globalVisualSync = () => {
         if(modalBtn && !modalBtn.disabled){
             for(const [skillId, isPurchased] of Object.entries(GameState.player.skills || {})){
                 if(isPurchased === true){
-                    const titleBlock = activeModal.querySelector('div[style*="font-size: 1.8rem"]');
+                    const titleBlock = activeModal.querySelector('div[style*="font-size: 1.4rem"]'); 
                     if(titleBlock && titleBlock.innerText === t(`s${skillId}_name`)){
-                        
                         modalBtn.disabled = true;
                         modalBtn.style.cursor = 'not-allowed';
-                        modalBtn.innerText = t('btn_purchased') || 'COMPRADO';
+                        modalBtn.innerText = t('btn_purchased');
                         
                         const buttonWrapper = modalBtn.closest('.nav-node');
                         if(buttonWrapper){

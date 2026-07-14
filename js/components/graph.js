@@ -1,17 +1,18 @@
 // js/components/graph.js
 import { FloatingModal } from './modal.js';
+import { GameState } from '../app.js';
 
-export const createEdge = (x1, y1, x2, y2, type = '') => {
+export const createEdge = (x1, y1, x2, y2, type = '', fromId = '') => {
     const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
     return `
-        <div class="nav-edge ${type}" 
+        <div class="nav-edge ${type}" from="${fromId}"
              style="width: ${length}px; top: ${y1}px; left: ${x1}px; transform: translateY(-50%) rotate(${angle}deg);">
         </div>
     `;
 };
 
-export const createNode = (id, x, y, w, h, text, type = '', imageUrl = null) => {
+export const createNode = (id, x, y, w, h, text, type = '', imageUrl = null, prev = '0') => {
     let content = '';
     if(imageUrl){
         content = `
@@ -24,7 +25,7 @@ export const createNode = (id, x, y, w, h, text, type = '', imageUrl = null) => 
         content = `<button class="game-btn" style="width: ${w}px; height: ${h}px;">${text}</button>`;
     }
     return `
-        <div id="${id}" class="nav-node ${type}" style="top: ${y}px; left: ${x}px;">
+        <div id="${id}" class="nav-node ${type}" prev="${prev}" style="top: ${y}px; left: ${x}px;">
             ${content}
         </div>
     `;
@@ -33,7 +34,7 @@ export const createNode = (id, x, y, w, h, text, type = '', imageUrl = null) => 
 export const createAllNodes = (allNodes) => {
     let restr = ``;
     for(const [key, node] of Object.entries(allNodes)){
-        restr += createNode(key, node.x, node.y, node.w, node.h, node.text, node.type, node.imageUrl);
+        restr += createNode(key, node.x, node.y, node.w, node.h, node.text, node.type, node.imageUrl, node.prev);
     }
     return restr;
 };
@@ -41,7 +42,7 @@ export const createAllNodes = (allNodes) => {
 export const linkNodes = (n1, n2, type = '') => {
     const x1 = n1.x; const y1 = n1.y;
     const x2 = n2.x; const y2 = n2.y;
-    return createEdge(x1,y1,x2,y2,type);
+    return createEdge(n1.x, n1.y, n2.x, n2.y, type, n1.id);
 }
 
 export function attachModalToNode(containerSelector, modalOptions){
@@ -49,6 +50,7 @@ export function attachModalToNode(containerSelector, modalOptions){
     if(!nodeElement) return;
 
     nodeElement.addEventListener('click', (e) => {
+        AudioController.playSFX('modal.ogg');
         e.stopPropagation();
         new FloatingModal({
             id: containerSelector,

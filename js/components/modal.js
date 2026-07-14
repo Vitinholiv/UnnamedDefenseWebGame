@@ -233,6 +233,7 @@ export class SkillsModal {
         this.skillId = options.skillId || "";
         this.nameKey = options.nameKey || "";
         this.descKey = options.descKey || "";
+        this.statsType = options.statsType || 0;
         this.price = options.price || "0";
         this.onBuy = options.onBuy || (() => {});
         this.extraComponents = options.extraComponents || [];
@@ -253,12 +254,11 @@ export class SkillsModal {
         const content = [
             new ModalTextBlock(5, 6, 90, 14, t(this.nameKey), '1.4rem', { color: 'var(--theme-vivid)' }),
             new ModalTextBlock(5, 24, 90, 36, t(this.descKey), '0.95rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
-            new ModalTextBlock(5, 66, 90, 12, `${t('skill_stats',this.skillId)}`, '0.8rem', { color: 'var(--theme-vivid)' }),
+            new ModalTextBlock(5, 66, 90, 12, `${this.statsType == 0 ? t('skill_stats',this.skillId) : t('skill_stats_t',this.skillId)}`, '0.8rem', { color: 'var(--theme-vivid)' }),
             new ModalButton(25, 80, 50, 16, btnText, btnTheme, (e, m) => {
                 this.onBuy(e);
                 m.destroy();
             }, isPurchased),
-            
             ...this.extraComponents
         ];
 
