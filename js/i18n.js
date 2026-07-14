@@ -55,49 +55,6 @@ const dictionary = {
 
         'skill_stats': (x) => `Poder: ${SkillsData[`${x}`].power} | Mana: ${SkillsData[`${x}`].mana} | Recarga: ${SkillsData[`${x}`].cooldown}s | Custo: ${SkillsData[`${x}`].price}🟡`,
         'skill_stats_t': (x) => `Efeito: ${SkillsData[`${x}`].power}s | Mana: ${SkillsData[`${x}`].mana} | Recarga: ${SkillsData[`${x}`].cooldown}s | Custo: ${SkillsData[`${x}`].price}🟡`,
-
-        's1_name': 'Bola de Fogo',
-        's1_desc': 'Invoca uma bola de fogo para queimar seus inimigos.',
-        's2_name': 'Relâmpago',
-        's2_desc': 'Lança um relâmpago para dar dano médio a seus oponentes.',
-        's3_name': 'Invocar Rocha',
-        's3_desc': 'Invoca uma pequena rocha para ferir as tropas inimigas.',
-        's4_name': 'Vento Gélido',
-        's4_desc': 'Emite um vento gélido que causa efeito contínuo nos inimigos.',
-        's5_name': 'Espinhos de Gelo',
-        's5_desc': 'Dispara espinhos de gelo capazes de causar alto dano direto.',
-        's6_name': 'Envenenamento',
-        's6_desc': 'Aplica um veneno que drena a vida do alvo por um período.',
-        's7_name': 'Raio Lazer',
-        's7_desc': 'Dispara um feixe de luz concentrada para causar dano massivo.',
-        's8_name': 'Tiros de Ar',
-        's8_desc': 'Dispara rajadas de ar comprimido para repelir e ferir inimigos.',
-        's9_name': 'Sopro de Cura',
-        's9_desc': 'Libera uma névoa mágica que restaura a vida das unidades aliadas.',
-        's10_name': 'Explosão Gélida',
-        's10_desc': 'Congela a área ao redor, causando efeito prolongado nos inimigos.',
-        's11_name': 'Benção Angelical',
-        's11_desc': 'Invoca uma poderosa benção que cura intensamente as unidades.',
-        's12_name': 'Maldição Vampírica',
-        's12_desc': 'Drena a vida dos inimigos para regenerar a sua própria.',
-        's13_name': 'Barreira de Terra',
-        's13_desc': 'Levanta um muro de terra sólida para bloquear o avanço inimigo.',
-        's14_name': 'Grito de Guerra',
-        's14_desc': 'Inspira aliados com um grito que melhora o desempenho por um tempo.',
-        's15_name': 'Tornado',
-        's15_desc': 'Cria um vórtice de vento que atinge os inimigos repetidamente.',
-        's16_name': 'Barreira de Ferro',
-        's16_desc': 'Cria uma fortificação impenetrável de ferro para proteção máxima.',
-        's17_name': 'Tempestade',
-        's17_desc': 'Invoca uma tempestade que causa dano em área múltiplos hits.',
-        's18_name': 'Tiro de Prata',
-        's18_desc': 'Dispara um projétil de prata capaz de perfurar defesas inimigas.',
-        's19_name': 'Super Trovão',
-        's19_desc': 'Chama uma descarga elétrica devastadora do céu.',
-        's20_name': 'Extermínio',
-        's20_desc': 'Libera um ataque final que elimina os inimigos na área.',
-        's21_name': 'Super Tornado',
-        's21_desc': 'Invoca um tornado colossal que varre o campo de batalha com múltiplos hits.',
     },
     'en-US': {
         'title_unnamed': 'UNNAMED',
@@ -151,58 +108,30 @@ const dictionary = {
 
         'skill_stats': (x) => `Power: ${SkillsData[`${x}`].power} | Mana: ${SkillsData[`${x}`].mana} | Cooldown: ${SkillsData[`${x}`].cooldown}s | Cost: ${SkillsData[`${x}`].price}🟡`,
         'skill_stats_t': (x) => `Effect: ${SkillsData[`${x}`].power}s | Mana: ${SkillsData[`${x}`].mana} | Cooldown: ${SkillsData[`${x}`].cooldown}s | Cost: ${SkillsData[`${x}`].price}🟡`,
-
-        's1_name': 'Fireball',
-        's1_desc': 'Summons a fireball to burn your enemies.',
-        's2_name': 'Lightning Bolt',
-        's2_desc': 'Casts a lightning bolt to deal medium damage to your opponents.',
-        's3_name': 'Summon Boulder',
-        's3_desc': 'Summons a small boulder to hurt enemy troops.',
-        's4_name': 'Icy Wind',
-        's4_desc': 'Emits a chilling wind that causes continuous damage to enemies.',
-        's5_name': 'Ice Spikes',
-        's5_desc': 'Shoots ice spikes capable of dealing high direct damage.',
-        's6_name': 'Poisoning',
-        's6_desc': 'Applies a poison that drains the target\'s health over time.',
-        's7_name': 'Laser Beam',
-        's7_desc': 'Fires a concentrated beam of light to deal massive damage.',
-        's8_name': 'Air Shots',
-        's8_desc': 'Fires compressed air blasts to repel and wound enemies.',
-        's9_name': 'Healing Breath',
-        's9_desc': 'Releases a magical mist that restores health to allied units.',
-        's10_name': 'Frost Burst',
-        's10_desc': 'Freezes the area around, causing a prolonged effect on enemies.',
-        's11_name': 'Angelic Blessing',
-        's11_desc': 'Invokes a powerful blessing that intensely heals your units.',
-        's12_name': 'Vampiric Curse',
-        's12_desc': 'Drains life from enemies to regenerate your own health.',
-        's13_name': 'Earth Barrier',
-        's13_desc': 'Raises a solid earth wall to block the enemy advance.',
-        's14_name': 'War Cry',
-        's14_desc': 'Inspires allies with a shout that improves performance for a time.',
-        's15_name': 'Tornado',
-        's15_desc': 'Creates a wind vortex that hits enemies repeatedly.',
-        's16_name': 'Iron Barrier',
-        's16_desc': 'Creates an impenetrable iron fortification for maximum protection.',
-        's17_name': 'Storm',
-        's17_desc': 'Summons a storm that deals area damage with multiple hits.',
-        's18_name': 'Silver Shot',
-        's18_desc': 'Fires a silver projectile capable of piercing enemy defenses.',
-        's19_name': 'Super Thunder',
-        's19_desc': 'Calls down a devastating electric discharge from the sky.',
-        's20_name': 'Extermination',
-        's20_desc': 'Releases a final attack that wipes out enemies in the area.',
-        's21_name': 'Super Tornado',
-        's21_desc': 'Invokes a colossal tornado that sweeps the battlefield with multiple hits.',
-
     }
 };
 
 export const t = (key, aux = '') => {
     const lang = GameState.settings?.language || 'pt-BR';
+    
+    const skillMatch = key.match(/^s(\d+)_(name|desc)$/);
+    if(skillMatch){
+        const id = skillMatch[1];
+        const prop = skillMatch[2];
+        
+        if(SkillsData[id] && SkillsData[id][prop]){
+            if(SkillsData[id][prop][lang]){
+                return SkillsData[id][prop][lang];
+            } else if(SkillsData[id][prop]['pt-BR']){
+                return SkillsData[id][prop]['pt-BR'];
+            }
+        }
+    }
+
     if(!dictionary[lang] || !dictionary[lang][key]){
         console.warn(`[i18n.js] Tradução faltando para: [${lang}] ${key}`);
-        return dictionary['pt-BR'][key] || key;
+        return dictionary['pt-BR']?.[key] || key;
     }
+    
     return aux != '' ? dictionary[lang][key](aux) : dictionary[lang][key];
 };

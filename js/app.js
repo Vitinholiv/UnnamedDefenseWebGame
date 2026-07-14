@@ -7,7 +7,7 @@ import { SkillsScreen } from './screens/skills.js';
 import { BattleScreen } from './screens/battle.js';
 import { AchievementsScreen } from './screens/achievements.js';
 import { GameLayout } from './components/layout.js';
-import{ t } from './i18n.js';
+import { t } from './i18n.js';
 import { SkillsData } from './components/data.js';
 
 const defaultPlayer = {
@@ -191,7 +191,7 @@ export const GameUI = {
                 </button>
             </div>
         `;
-        setTimeout(() =>{
+        setTimeout(() => {
             overlay.classList.add('active');
         }, 10);
     }
@@ -214,20 +214,23 @@ export const globalVisualSync = () => {
     const skillNodes = document.querySelectorAll('.nav-node[id^="s"]');
     skillNodes.forEach(node => {
         const skillId = node.id.replace('s', '');
-        const prevId = node.getAttribute('prev');
+        const skillInfo = SkillsData[skillId];
+        
+        if(skillInfo){
+            const prevId = skillInfo.prev;
 
-        let isVisible = true;
-        if (prevId && prevId !== '0') {
-            isVisible = GameState.player.skills && GameState.player.skills[prevId] === true;
-        }
+            let isVisible = true;
+            if(prevId && prevId != 0){
+                isVisible = GameState.player.skills && GameState.player.skills[prevId] === true;
+            }
 
-        if (!isVisible) {
-            node.style.display = 'none';
-        } else {
-            node.style.display = '';
-            if(GameState.player.skills && skillId in GameState.player.skills){
-                const isPurchased = GameState.player.skills[skillId] === true;
-                const canAfford = GameState.player.goldCoins >= SkillsData[`${skillId}`].price;
+            if(!isVisible){
+                node.style.display = 'none';
+            } else {
+                node.style.display = '';
+                
+                const isPurchased = GameState.player.skills && GameState.player.skills[skillId] === true;
+                const canAfford = GameState.player.goldCoins >= skillInfo.price;
                 const targetClass = isPurchased ? 'green' : (canAfford ? 'yellow' : 'red'); 
                 
                 if(!node.classList.contains(targetClass)){
@@ -245,8 +248,9 @@ export const globalVisualSync = () => {
     const edges = document.querySelectorAll('.nav-edge');
     edges.forEach(edge => {
         const fromId = edge.getAttribute('from'); 
-        if (fromId) {
-            const isSourcePurchased = GameState.player.skills && GameState.player.skills[fromId] === true;
+        if(fromId){
+            const actualId = fromId.replace('s', '');
+            const isSourcePurchased = GameState.player.skills && GameState.player.skills[actualId] === true;
             edge.style.display = isSourcePurchased ? '' : 'none';
         }
     });
@@ -255,17 +259,19 @@ export const globalVisualSync = () => {
     if(activeModal){
         const modalBtn = activeModal.querySelector('.game-btn');
         if(modalBtn && !modalBtn.disabled){
-            for(const [skillId, isPurchased] of Object.entries(GameState.player.skills || {})){
-                if(isPurchased === true){
-                    const titleBlock = activeModal.querySelector('div[style*="font-size: 1.4rem"]'); 
-                    if(titleBlock && titleBlock.innerText === t(`s${skillId}_name`)){
-                        modalBtn.disabled = true;
-                        modalBtn.style.cursor = 'not-allowed';
-                        modalBtn.innerText = t('btn_purchased');
-                        
-                        const buttonWrapper = modalBtn.closest('.nav-node');
-                        if(buttonWrapper){
-                            buttonWrapper.className = 'nav-node locked';
+            const titleBlock = activeModal.querySelector('div[style*="font-size: 1.4rem"]'); 
+            if(titleBlock){
+                for(const [skillId, isPurchased] of Object.entries(GameState.player.skills || {})){
+                    if(isPurchased === true){
+                        if(titleBlock.innerText === t(`s${skillId}_name`)){
+                            modalBtn.disabled = true;
+                            modalBtn.style.cursor = 'not-allowed';
+                            modalBtn.innerText = t('btn_purchased');
+                            
+                            const buttonWrapper = modalBtn.closest('.nav-node');
+                            if(buttonWrapper){
+                                buttonWrapper.className = 'nav-node locked';
+                            }
                         }
                     }
                 }
