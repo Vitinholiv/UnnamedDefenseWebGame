@@ -63,7 +63,7 @@ export const SkillsScreen = () => {
 
     setTimeout(() => {
         new SpatialViewport('#skills-map', {
-            worldWidth: 2600,
+            worldWidth: 2800,
             worldHeight: 1400,
             zoomMax: 3.6,
         });
