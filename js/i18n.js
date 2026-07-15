@@ -1,6 +1,6 @@
 // js/i18n.js
 import { GameState } from './app.js';
-import { SkillsData } from './components/data.js';
+import { SkillsData, LevelsData } from './components/data.js';
 
 const dictionary = {
     'pt-BR': {
@@ -47,11 +47,6 @@ const dictionary = {
         'btn_purchased': 'Comprado',
 
         'level_objective1': 'Objetivo: Destrua a base inimiga.',
-
-        'f1_name': 'Vila Descolorida',
-        'f1_desc': 'Uma misteriosa vila é encontrada, e seus habitantes parecem ter perdido sua cor. Qual será a razão disso?',
-        'f2_name': 'Planícies Esbranquiçadas',
-        'f2_desc': 'Mesmo além da vila, parece que há muitas pessoas que perderam sua cor. Isso parece estar se espalhando.',
 
         'skill_stats': (x) => `Poder: ${SkillsData[`${x}`].power} | Mana: ${SkillsData[`${x}`].mana} | Recarga: ${SkillsData[`${x}`].cooldown}s | Custo: ${SkillsData[`${x}`].price}🟡`,
         'skill_stats_t': (x) => `Efeito: ${SkillsData[`${x}`].power}s | Mana: ${SkillsData[`${x}`].mana} | Recarga: ${SkillsData[`${x}`].cooldown}s | Custo: ${SkillsData[`${x}`].price}🟡`,
@@ -101,11 +96,6 @@ const dictionary = {
 
         'level_objective1': 'Objective: Destroy the enemy base.',
 
-        'f1_name': 'Colorless Village',
-        'f1_desc': 'A mysterious village is found, and the villagers there are becoming colorless. Why would this happen to them?',
-        'f2_name': 'Whitened Plains',
-        'f2_desc': 'Even beyond the village, it looks like there are a lot of people missing their color. This may be spreading.',
-
         'skill_stats': (x) => `Power: ${SkillsData[`${x}`].power} | Mana: ${SkillsData[`${x}`].mana} | Cooldown: ${SkillsData[`${x}`].cooldown}s | Cost: ${SkillsData[`${x}`].price}🟡`,
         'skill_stats_t': (x) => `Effect: ${SkillsData[`${x}`].power}s | Mana: ${SkillsData[`${x}`].mana} | Cooldown: ${SkillsData[`${x}`].cooldown}s | Cost: ${SkillsData[`${x}`].price}🟡`,
     }
@@ -113,7 +103,12 @@ const dictionary = {
 
 export const t = (key, aux = '') => {
     const lang = GameState.settings?.language || 'pt-BR';
-    
+
+    if(dictionary[lang]?.[key] !== undefined){
+        const value = dictionary[lang][key];
+        return aux != '' ? value(aux) : value;
+    }
+
     const skillMatch = key.match(/^s(\d+)_(name|desc)$/);
     if(skillMatch){
         const id = skillMatch[1];
@@ -128,10 +123,20 @@ export const t = (key, aux = '') => {
         }
     }
 
-    if(!dictionary[lang] || !dictionary[lang][key]){
-        console.warn(`[i18n.js] Tradução faltando para: [${lang}] ${key}`);
-        return dictionary['pt-BR']?.[key] || key;
+    const levelMatch = key.match(/^f(\d+)_(name|desc)$/);
+    if(levelMatch){
+        const id = levelMatch[1];
+        const prop = levelMatch[2];
+
+        if(LevelsData[id] && LevelsData[id][prop]){
+            if(LevelsData[id][prop][lang]){
+                return LevelsData[id][prop][lang];
+            } else if(LevelsData[id][prop]['pt-BR']){
+                return LevelsData[id][prop]['pt-BR'];
+            }
+        }
     }
-    
-    return aux != '' ? dictionary[lang][key](aux) : dictionary[lang][key];
+
+    console.warn(`[i18n.js] Tradução faltando para: [${lang}] ${key}`);
+    return dictionary['pt-BR']?.[key] || key;
 };

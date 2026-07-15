@@ -8,7 +8,7 @@ import { BattleScreen } from './screens/battle.js';
 import { AchievementsScreen } from './screens/achievements.js';
 import { GameLayout } from './components/layout.js';
 import { t } from './i18n.js';
-import { SkillsData } from './components/data.js';
+import { SkillsData, LevelsData } from './components/data.js';
 
 const defaultPlayer = {
     username: null,
@@ -245,13 +245,46 @@ export const globalVisualSync = () => {
         }
     });
 
+    const levelNodes = document.querySelectorAll('.nav-node[id^="f"]');
+    levelNodes.forEach(node => {
+        const levelId = node.id.replace('f', '');
+        const levelInfo = LevelsData[levelId];
+
+        if(levelInfo){
+            const prevId = levelInfo.prev;
+
+            let isVisible = true;
+            if(prevId && prevId != 0){
+                isVisible = GameState.player.levels && GameState.player.levels[prevId] === true;
+            }
+
+            if(!isVisible){
+                node.style.display = 'none';
+            } else {
+                node.style.display = '';
+
+                const isBeaten = GameState.player.levels && GameState.player.levels[levelId] === true;
+                const targetClass = isBeaten ? 'green' : 'red';
+
+                if(!node.classList.contains(targetClass)){
+                    node.classList.remove('red', 'green');
+                    node.classList.add(targetClass);
+                }
+            }
+        }
+    });
+
     const edges = document.querySelectorAll('.nav-edge');
     edges.forEach(edge => {
-        const fromId = edge.getAttribute('from'); 
-        if(fromId){
-            const actualId = fromId.replace('s', '');
-            const isSourcePurchased = GameState.player.skills && GameState.player.skills[actualId] === true;
+        const fromId = edge.getAttribute('from');
+        if(!fromId) return;
+
+        if(edge.classList.contains('blue')){
+            const isSourcePurchased = GameState.player.skills && GameState.player.skills[fromId] === true;
             edge.style.display = isSourcePurchased ? '' : 'none';
+        } else if(edge.classList.contains('red')){
+            const isSourceBeaten = GameState.player.levels && GameState.player.levels[fromId] === true;
+            edge.style.display = isSourceBeaten ? '' : 'none';
         }
     });
 

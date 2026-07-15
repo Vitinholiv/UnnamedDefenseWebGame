@@ -68,7 +68,6 @@ export const SkillsScreen = () => {
             zoomMax: 3.6,
         });
 
-        // Associa os modais dinamicamente
         for(const [id, skill] of Object.entries(SkillsData)){
             attachModalToNode(`#s${id}`, {
                 width: 450,
