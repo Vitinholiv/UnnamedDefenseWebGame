@@ -1,3 +1,4 @@
+//js/app.js
 import { Storage, API } from './api.js';
 import { StartScreen } from './screens/start.js';
 import { SettingsScreen } from './screens/settings.js';

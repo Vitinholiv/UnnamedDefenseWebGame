@@ -864,3 +864,40 @@ export const LevelsData = {
         'y': 1200
     }
 };
+
+export const UnitsData = {
+    '1': {
+        'name': { 'pt-BR': '...', 'en-US': '...' },
+        'desc': { 'pt-BR': '...', 'en-US': '...' },
+        'x': 0, 'y': 0,
+        'hp': 0,
+        'def': 0,
+        'power': 0,
+        'speed': 0,
+        'range': 0,
+        'atkChargeTime': 0,
+        'atkHitTime': 0,
+        'atkFinishTime': 0,
+        'targetCount': 0,
+        'hitLimit': 0,
+        'hitType': 'closest', //closest, random, strongest
+        'area': 0,
+        'type': 'healer',
+        'effects': [],
+        'buyCost': 0,
+        'projectile': {},
+    }
+}
+
+export const AchievementsData = {
+    '1': {
+        'name': { 'pt-BR': '...', 'en-US': '...' },
+        'desc': { 'pt-BR': '...', 'en-US': '...' },
+        'x': 0, 'y': 0,
+        'check': () => {return false;},
+        'exp': 0,
+        'gold': 0,
+        'silver': 0,
+        'rewards': {},
+    }
+}

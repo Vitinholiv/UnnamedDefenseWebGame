@@ -1,3 +1,4 @@
+//js/screens/settings.js
 import { GameState } from '../app.js';
 import { t } from '../i18n.js';
 

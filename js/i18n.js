@@ -45,6 +45,12 @@ const dictionary = {
         'btn_start': 'Iniciar',
         'btn_buy': 'Comprar',
         'btn_purchased': 'Comprado',
+        'btn_claim': 'Resgatar',
+        'btn_claimed': 'Resgatado',
+        'btn_locked': 'Bloqueado',
+
+        'unit_stats': (x) => `HP: ${UnitsData[`${x}`].hp} | Atk: ${UnitsData[`${x}`].power} | Def: ${UnitsData[`${x}`].def} | Custo: ${UnitsData[`${x}`].buyCost}🟡`,
+        'achiev_rewards': (x) => `Exp: ${AchievementsData[`${x}`].exp} | Ouro: ${AchievementsData[`${x}`].gold}🟡 | Prata: ${AchievementsData[`${x}`].silver}🔵`,
 
         'level_objective1': 'Objetivo: Destrua a base inimiga.',
 
@@ -93,6 +99,12 @@ const dictionary = {
         'btn_start': 'Start',
         'btn_buy': 'Buy',
         'btn_purchased': 'Bought',
+        'btn_claim': 'Claim',
+        'btn_claimed': 'Claimed',
+        'btn_locked': 'Locked',
+
+        'unit_stats': (x) => `HP: ${UnitsData[`${x}`].hp} | Atk: ${UnitsData[`${x}`].power} | Def: ${UnitsData[`${x}`].def} | Cost: ${UnitsData[`${x}`].buyCost}🟡`,
+        'achiev_rewards': (x) => `Exp: ${AchievementsData[`${x}`].exp} | Gold: ${AchievementsData[`${x}`].gold}🟡 | Silver: ${AchievementsData[`${x}`].silver}🔵`,
 
         'level_objective1': 'Objective: Destroy the enemy base.',
 
@@ -133,6 +145,32 @@ export const t = (key, aux = '') => {
                 return LevelsData[id][prop][lang];
             } else if(LevelsData[id][prop]['pt-BR']){
                 return LevelsData[id][prop]['pt-BR'];
+            }
+        }
+    }
+
+    const unitMatch = key.match(/^u(\d+)_(name|desc)$/);
+    if(unitMatch){
+        const id = unitMatch[1];
+        const prop = unitMatch[2];
+        if(UnitsData[id] && UnitsData[id][prop]){
+            if(UnitsData[id][prop][lang]){
+                return UnitsData[id][prop][lang];
+            } else if(UnitsData[id][prop]['pt-BR']){
+                return UnitsData[id][prop]['pt-BR'];
+            }
+        }
+    }
+
+    const achievMatch = key.match(/^a(\d+)_(name|desc)$/);
+    if(achievMatch){
+        const id = achievMatch[1];
+        const prop = achievMatch[2];
+        if(AchievementsData[id] && AchievementsData[id][prop]){
+            if(AchievementsData[id][prop][lang]){
+                return AchievementsData[id][prop][lang];
+            } else if(AchievementsData[id][prop]['pt-BR']){
+                return AchievementsData[id][prop]['pt-BR'];
             }
         }
     }
