@@ -1,4 +1,3 @@
-// js/components/viewport.js
 export class SpatialViewport {
     constructor(containerSelector, options = {}){
         this.viewport = typeof containerSelector === 'string' ? document.querySelector(containerSelector) : containerSelector;        
@@ -9,7 +8,8 @@ export class SpatialViewport {
             worldHeight: options.worldHeight || 732,
             zoomMax: options.zoomMax || 3.0,
             zoomSpeed: options.zoomSpeed || 0.3,
-            zoomMin: 1.0
+            zoomMin: 1.0,
+            backgroundImage: options.backgroundImage || null
         };
 
         this.state = {
@@ -18,7 +18,9 @@ export class SpatialViewport {
             zoom: 1,
             isDragging: false,
             startX: 0,
-            startY: 0
+            startY: 0,
+            rawMouseX: null,
+            rawMouseY: null
         };
 
         this.initDOM();
@@ -36,6 +38,13 @@ export class SpatialViewport {
         this.world.classList.add('nav-world');
         this.world.style.width = `${this.config.worldWidth}px`;
         this.world.style.height = `${this.config.worldHeight}px`;
+
+        if(this.config.backgroundImage){
+            this.world.style.backgroundImage = `url('${this.config.backgroundImage}')`;
+            this.world.style.backgroundSize = '100% 100%';
+            this.world.style.backgroundPosition = 'center';
+            this.world.style.backgroundRepeat = 'no-repeat';
+        }
         
         this.world.innerHTML = innerContent;
         this.viewport.appendChild(this.world);
@@ -93,6 +102,9 @@ export class SpatialViewport {
         });
 
         window.addEventListener('mousemove', (e) => {
+            this.state.rawMouseX = e.clientX;
+            this.state.rawMouseY = e.clientY;
+
             if(!this.state.isDragging) return;
             
             this.state.x = e.clientX - this.state.startX;
@@ -131,5 +143,21 @@ export class SpatialViewport {
         window.addEventListener('resize', () => {
             this.updateTransform();
         });
+
+        setInterval(() => {
+            if(this.state.rawMouseX === null || this.state.rawMouseY === null) return;
+            
+            const rect = this.viewport.getBoundingClientRect();
+            const mouseX = this.state.rawMouseX - rect.left;
+            const mouseY = this.state.rawMouseY - rect.top;
+
+            const baseScale = Math.max(rect.width / this.config.worldWidth, rect.height / this.config.worldHeight);
+            const currentScale = baseScale * this.state.zoom;
+
+            const worldX = (mouseX - this.state.x) / currentScale;
+            const worldY = (mouseY - this.state.y) / currentScale;
+
+            console.log(`x: ${Math.round(worldX)}, y: ${Math.round(worldY)}`);
+        }, 1000);
     }
 }

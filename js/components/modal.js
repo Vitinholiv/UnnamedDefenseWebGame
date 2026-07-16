@@ -269,3 +269,93 @@ export class SkillsModal {
         return container;
     }
 }
+
+export class UnitModal {
+    constructor(options = {}){
+        this.unitId = options.unitId || "";
+        this.nameKey = options.nameKey || "";
+        this.descKey = options.descKey || "";
+        this.buyCost = options.buyCost || 0;
+        this.onBuy = options.onBuy || (() => {});
+        this.theme = options.theme || 'purple';
+    }
+
+    render(modalInstance){
+        modalInstance.element.classList.add(this.theme);
+        const container = document.createElement('div');
+        container.style.width = '100%';
+        container.style.height = '100%';
+        container.style.position = 'relative';
+
+        const isPurchased = this.unitId && GameState.player.units[this.unitId] === true;
+        const btnText = isPurchased ? t('btn_purchased') : t('btn_buy');
+        const btnTheme = isPurchased ? 'locked' : this.theme;
+
+        const content = [
+            new ModalTextBlock(5, 6, 90, 14, t(this.nameKey), '1.4rem', { color: 'var(--theme-vivid)' }),
+            new ModalTextBlock(5, 24, 90, 36, t(this.descKey), '0.95rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
+            new ModalTextBlock(5, 66, 90, 12, t('unit_stats', this.unitId), '0.8rem', { color: 'var(--theme-vivid)' }),
+            new ModalButton(25, 80, 50, 16, btnText, btnTheme, (e, m) => {
+                this.onBuy(e);
+                m.destroy();
+            }, isPurchased)
+        ];
+
+        content.forEach(comp => {
+            container.appendChild(comp.render(modalInstance));
+        });
+
+        return container;
+    }
+}
+
+export class AchievementModal {
+    constructor(options = {}){
+        this.achievId = options.achievId || "";
+        this.nameKey = options.nameKey || "";
+        this.descKey = options.descKey || "";
+        this.isCompleted = options.isCompleted || false;
+        this.onClaim = options.onClaim || (() => {});
+        this.theme = options.theme || 'green';
+    }
+
+    render(modalInstance){
+        modalInstance.element.classList.add(this.theme);
+        const container = document.createElement('div');
+        container.style.width = '100%';
+        container.style.height = '100%';
+        container.style.position = 'relative';
+
+        const isClaimed = this.achievId && GameState.player.achievements[this.achievId] === true;
+        
+        let btnText = t('btn_claim');
+        let btnTheme = this.theme;
+        let disabled = false;
+        
+        if(isClaimed){
+            btnText = t('btn_claimed');
+            btnTheme = 'locked';
+            disabled = true;
+        } else if(!this.isCompleted){
+            btnText = t('btn_locked');
+            btnTheme = 'locked';
+            disabled = true;
+        }
+
+        const content = [
+            new ModalTextBlock(5, 6, 90, 14, t(this.nameKey), '1.4rem', { color: 'var(--theme-vivid)' }),
+            new ModalTextBlock(5, 24, 90, 36, t(this.descKey), '0.95rem', { border: '1px solid var(--theme-strong)', color: 'var(--theme-strong)' }),
+            new ModalTextBlock(5, 66, 90, 12, t('achiev_rewards', this.achievId), '0.8rem', { color: 'var(--theme-vivid)' }),
+            new ModalButton(25, 80, 50, 16, btnText, btnTheme, (e, m) => {
+                this.onClaim(e);
+                m.destroy();
+            }, disabled)
+        ];
+
+        content.forEach(comp => {
+            container.appendChild(comp.render(modalInstance));
+        });
+
+        return container;
+    }
+}

@@ -9,7 +9,7 @@ import { BattleScreen } from './screens/battle.js';
 import { AchievementsScreen } from './screens/achievements.js';
 import { GameLayout } from './components/layout.js';
 import { t } from './i18n.js';
-import { SkillsData, LevelsData } from './components/data.js';
+import { SkillsData, LevelsData, UnitsData, AchievementsData } from './components/data.js';
 
 const defaultPlayer = {
     username: null,
@@ -275,6 +275,59 @@ export const globalVisualSync = () => {
         }
     });
 
+    const unitNodes = document.querySelectorAll('.nav-node[id^="u"]');
+    unitNodes.forEach(node => {
+        const unitId = node.id.replace('u', '');
+        const unitInfo = UnitsData[unitId];
+        
+        if(unitInfo){
+            const prevId = unitInfo.prev;
+            let isVisible = true;
+            if(prevId && prevId != 0){
+                isVisible = GameState.player.units && GameState.player.units[prevId] === true;
+            }
+
+            if(!isVisible){
+                node.style.display = 'none';
+            } else {
+                node.style.display = '';
+                const isPurchased = GameState.player.units && GameState.player.units[unitId] === true;
+                const canAfford = GameState.player.goldCoins >= unitInfo.buyCost;
+                const targetClass = isPurchased ? 'green' : (canAfford ? 'yellow' : 'red'); 
+                
+                if(!node.classList.contains(targetClass)){
+                    node.classList.remove('red', 'green', 'yellow');
+                    node.classList.add(targetClass);
+                    const innerBtn = node.querySelector('.game-btn');
+                    if(innerBtn){
+                        innerBtn.style.backgroundColor = ''; 
+                    }
+                }
+            }
+        }
+    });
+
+    const achievNodes = document.querySelectorAll('.nav-node[id^="a"]');
+    achievNodes.forEach(node => {
+        const achievId = node.id.replace('a', '');
+        const achievInfo = AchievementsData[achievId];
+
+        if(achievInfo){
+            const isClaimed = GameState.player.achievements && GameState.player.achievements[achievId] === true;
+            const isCompleted = achievInfo.check(GameState);
+            const targetClass = isClaimed ? 'green' : (isCompleted ? 'yellow' : 'red'); 
+
+            if(!node.classList.contains(targetClass)){
+                node.classList.remove('red', 'green', 'yellow');
+                node.classList.add(targetClass);
+                const innerBtn = node.querySelector('.game-btn');
+                if(innerBtn){
+                    innerBtn.style.backgroundColor = ''; 
+                }
+            }
+        }
+    });
+
     const edges = document.querySelectorAll('.nav-edge');
     edges.forEach(edge => {
         const fromId = edge.getAttribute('from');
@@ -302,6 +355,34 @@ export const globalVisualSync = () => {
                             modalBtn.style.cursor = 'not-allowed';
                             modalBtn.innerText = t('btn_purchased');
                             
+                            const buttonWrapper = modalBtn.closest('.nav-node');
+                            if(buttonWrapper){
+                                buttonWrapper.className = 'nav-node locked';
+                            }
+                        }
+                    }
+                }
+
+                for(const [unitId, isPurchased] of Object.entries(GameState.player.units || {})){
+                    if(isPurchased === true){
+                        if(titleBlock && titleBlock.innerText === t(`u${unitId}_name`)){
+                            modalBtn.disabled = true;
+                            modalBtn.style.cursor = 'not-allowed';
+                            modalBtn.innerText = t('btn_purchased');
+                            const buttonWrapper = modalBtn.closest('.nav-node');
+                            if(buttonWrapper){
+                                buttonWrapper.className = 'nav-node locked';
+                            }
+                        }
+                    }
+                }
+
+                for(const [achievId, isClaimed] of Object.entries(GameState.player.achievements || {})){
+                    if(isClaimed === true){
+                        if(titleBlock && titleBlock.innerText === t(`a${achievId}_name`)){
+                            modalBtn.disabled = true;
+                            modalBtn.style.cursor = 'not-allowed';
+                            modalBtn.innerText = t('btn_claimed');
                             const buttonWrapper = modalBtn.closest('.nav-node');
                             if(buttonWrapper){
                                 buttonWrapper.className = 'nav-node locked';

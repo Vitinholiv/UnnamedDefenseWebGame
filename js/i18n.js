@@ -1,6 +1,6 @@
 // js/i18n.js
 import { GameState } from './app.js';
-import { SkillsData, LevelsData } from './components/data.js';
+import { SkillsData, LevelsData, UnitsData, AchievementsData } from './components/data.js';
 
 const dictionary = {
     'pt-BR': {

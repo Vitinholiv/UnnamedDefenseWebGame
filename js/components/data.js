@@ -155,8 +155,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 200,
-        'y': 800
+        'x': 3300,
+        'y': 2508,
+        'img': 'wooden.png'
     },
     '2': {
         'name': { 'pt-BR': '...', 'en-US': 'Viking (Forte)' },
@@ -170,8 +171,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 400,
-        'y': 800
+        'x': 2985,
+        'y': 2327,
+        'img': 'wooden.png'
     },
     '3': {
         'name': { 'pt-BR': '...', 'en-US': 'Hog Riders' },
@@ -185,8 +187,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 600,
-        'y': 800
+        'x': 2452,
+        'y': 1905,
+        'img': 'wooden.png'
     },
     '4': {
         'name': { 'pt-BR': '...', 'en-US': 'Hog Rider (Forte)' },
@@ -200,8 +203,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 600,
-        'y': 600
+        'x': 2400,
+        'y': 2552,
+        'img': 'sand.png'
     },
     '5': {
         'name': { 'pt-BR': '...', 'en-US': 'Knights' },
@@ -215,8 +219,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 800,
-        'y': 800
+        'x': 3330,
+        'y': 1610,
+        'img': 'wooden.png'
     },
     '6': {
         'name': { 'pt-BR': '...', 'en-US': 'Haunted Pumpking (x4)' },
@@ -230,8 +235,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 400,
-        'y': 600
+        'x': 2710,
+        'y': 3180,
+        'img': 'sand.png'
     },
     '7': {
         'name': { 'pt-BR': '...', 'en-US': 'Locked Sarcofaguss' },
@@ -245,8 +251,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 800,
-        'y': 600
+        'x': 2000,
+        'y': 3130,
+        'img': 'sand.png'
     },
     '8': {
         'name': { 'pt-BR': '...', 'en-US': 'Guards' },
@@ -260,8 +267,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1000,
-        'y': 800
+        'x': 3315,
+        'y': 942,
+        'img': 'wooden.png'
     },
     '9': {
         'name': { 'pt-BR': '...', 'en-US': 'Haunted Pumpking (Forte)' },
@@ -275,8 +283,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 400,
-        'y': 400
+        'x': 2483,
+        'y': 3420,
+        'img': 'sand.png'
     },
     '10': {
         'name': { 'pt-BR': '...', 'en-US': 'Wind Spirits' },
@@ -290,8 +299,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 800,
-        'y': 400
+        'x': 1463,
+        'y': 3600,
+        'img': 'sand.png'
     },
     '11': {
         'name': { 'pt-BR': '...', 'en-US': 'Laser Knights' },
@@ -305,8 +315,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1000,
-        'y': 600
+        'x': 2425,
+        'y': 915,
+        'img': 'mecha.png'
     },
     '12': {
         'name': { 'pt-BR': '...', 'en-US': 'Angel (Forte)' },
@@ -320,8 +331,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1200,
-        'y': 800
+        'x': 3935,
+        'y': 840,
+        'img': 'angel.png'
     },
     '13': {
         'name': { 'pt-BR': '...', 'en-US': 'Mago de Fogo (Forte)' },
@@ -335,8 +347,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1000,
-        'y': 1000
+        'x': 4150,
+        'y': 1890,
+        'img': 'wooden.png'
     },
     '14': {
         'name': { 'pt-BR': '...', 'en-US': 'Sinister Bear (Muito Forte)' },
@@ -350,8 +363,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 400,
-        'y': 200
+        'x': 2610,
+        'y': 4000,
+        'img': 'sand.png'
     },
     '15': {
         'name': { 'pt-BR': '...', 'en-US': 'Colossus (Forte)' },
@@ -365,8 +379,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 600,
-        'y': 400
+        'x': 1212,
+        'y': 3220,
+        'img': 'sand.png'
     },
     '16': {
         'name': { 'pt-BR': '...', 'en-US': 'Railgunner (Forte)' },
@@ -380,8 +395,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1000,
-        'y': 400
+        'x': 2335,
+        'y': 620,
+        'img': 'mecha.png'
     },
     '17': {
         'name': { 'pt-BR': '...', 'en-US': 'Archangel (Forte)' },
@@ -395,8 +411,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1200,
-        'y': 600
+        'x': 4474,
+        'y': 916,
+        'img': 'angel.png'
     },
     '18': {
         'name': { 'pt-BR': '...', 'en-US': 'Mago de Fogo' },
@@ -410,8 +427,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 800,
-        'y': 1000
+        'x': 4130,
+        'y': 2360,
+        'img': 'wooden.png'
     },
     '19': {
         'name': { 'pt-BR': '...', 'en-US': 'Huge Wolf (Muito Forte)' },
@@ -425,8 +443,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1200,
-        'y': 1000
+        'x': 4700,
+        'y': 2245,
+        'img': 'jungle.png'
     },
     '20': {
         'name': { 'pt-BR': '...', 'en-US': 'Amphiteres' },
@@ -440,8 +459,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 600,
-        'y': 200
+        'x': 2076,
+        'y': 2705,
+        'img': 'sand.png'
     },
     '21': {
         'name': { 'pt-BR': '...', 'en-US': 'War Tank (x2)' },
@@ -455,8 +475,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1200,
-        'y': 400
+        'x': 1930,
+        'y': 1000,
+        'img': 'mecha.png'
     },
     '22': {
         'name': { 'pt-BR': '...', 'en-US': 'Angels' },
@@ -470,8 +491,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1400,
-        'y': 600
+        'x': 4985,
+        'y': 860,
+        'img': 'angel.png'
     },
     '23': {
         'name': { 'pt-BR': '...', 'en-US': 'Golem (Forte, x2)' },
@@ -485,8 +507,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 600,
-        'y': 1000
+        'x': 3700,
+        'y': 2400,
+        'img': 'wooden.png'
     },
     '24': {
         'name': { 'pt-BR': '...', 'en-US': 'Giant Tiger (Forte)' },
@@ -500,8 +523,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1400,
-        'y': 1000
+        'x': 5230,
+        'y': 2250,
+        'img': 'jungle.png'
     },
     '25': {
         'name': { 'pt-BR': '...', 'en-US': 'Elemental Komodo (Forte)' },
@@ -515,8 +539,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1200,
-        'y': 1200
+        'x': 4500,
+        'y': 3070,
+        'img': 'jungle.png'
     },
     '26': {
         'name': { 'pt-BR': '...', 'en-US': 'Hurricane Spirit (Forte)' },
@@ -530,8 +555,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 800,
-        'y': 200
+        'x': 1563,
+        'y': 2489,
+        'img': 'sand.png'
     },
     '27': {
         'name': { 'pt-BR': '...', 'en-US': 'War Tank (Muito Forte)' },
@@ -545,8 +571,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1200,
-        'y': 200
+        'x': 1985,
+        'y': 1510,
+        'img': 'mecha.png'
     },
     '28': {
         'name': { 'pt-BR': '...', 'en-US': 'Iron Golem (Forte)' },
@@ -560,8 +587,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1400,
-        'y': 400
+        'x': 1683,
+        'y': 1210,
+        'img': 'mecha.png'
     },
     '29': {
         'name': { 'pt-BR': '...', 'en-US': 'Dominion (Forte)' },
@@ -575,8 +603,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1600,
-        'y': 600
+        'x': 5140,
+        'y': 1170,
+        'img': 'angel.png'
     },
     '30': {
         'name': { 'pt-BR': '...', 'en-US': 'Ophanim (Forte)' },
@@ -590,8 +619,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1400,
-        'y': 800
+        'x': 5062,
+        'y': 610,
+        'img': 'angel.png'
     },
     '31': {
         'name': { 'pt-BR': '...', 'en-US': 'Archmage (Muito Forte)' },
@@ -605,8 +635,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 400,
-        'y': 1000
+        'x': 3377,
+        'y': 1995,
+        'img': 'wooden_trial.png'
     },
     '32': {
         'name': { 'pt-BR': '...', 'en-US': 'Kirin (Lendário)' },
@@ -620,8 +651,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1600,
-        'y': 1000
+        'x': 5770,
+        'y': 2370,
+        'img': 'jungle_trial.png'
     },
     '33': {
         'name': { 'pt-BR': '...', 'en-US': 'Elemental Komodos' },
@@ -635,8 +667,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1000,
-        'y': 1200
+        'x': 4900,
+        'y': 3075,
+        'img': 'jungle.png'
     },
     '34': {
         'name': { 'pt-BR': '...', 'en-US': 'Phoenix (Lendário)' },
@@ -650,8 +683,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1000,
-        'y': 200
+        'x': 700,
+        'y': 2702,
+        'img': 'sand_trial.png'
     },
     '35': {
         'name': { 'pt-BR': '...', 'en-US': 'Mecholossus' },
@@ -665,8 +699,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1400,
-        'y': 200
+        'x': 1164,
+        'y': 1090,
+        'img': 'mecha.png'
     },
     '36': {
         'name': { 'pt-BR': '...', 'en-US': 'Steel Rex (Forte, x2)' },
@@ -680,8 +715,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1600,
-        'y': 400
+        'x': 1170,
+        'y': 1530,
+        'img': 'mecha.png'
     },
     '37': {
         'name': { 'pt-BR': '...', 'en-US': 'Cherubim (Muito Forte)' },
@@ -695,8 +731,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1800,
-        'y': 600
+        'x': 4756,
+        'y': 1238,
+        'img': 'angel.png'
     },
     '38': {
         'name': { 'pt-BR': '...', 'en-US': 'Seraphim (Muito Forte)' },
@@ -710,8 +747,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1600,
-        'y': 800
+        'x': 5406,
+        'y': 545,
+        'img': 'angel.png'
     },
     '39': {
         'name': { 'pt-BR': '...', 'en-US': 'Forest Dragon (Forte)' },
@@ -725,8 +763,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 800,
-        'y': 1200
+        'x': 5510,
+        'y': 3294,
+        'img': 'jungle.png'
     },
     '40': {
         'name': { 'pt-BR': '...', 'en-US': 'Titanic Chameleons (Forte)' },
@@ -740,8 +779,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1000,
-        'y': 1400
+        'x': 4950,
+        'y': 2725,
+        'img': 'jungle_trial.png'
     },
     '41': {
         'name': { 'pt-BR': '...', 'en-US': 'Mech Widow (Forte)' },
@@ -755,8 +795,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1600,
-        'y': 200
+        'x': 1596,
+        'y': 772,
+        'img': 'mecha.png'
     },
     '42': {
         'name': { 'pt-BR': '...', 'en-US': 'Mechalodon (Forte)' },
@@ -770,8 +811,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1800,
-        'y': 400
+        'x': 820,
+        'y': 1800,
+        'img': 'mecha.png'
     },
     '43': {
         'name': { 'pt-BR': '...', 'en-US': 'Seraphim (Lendário)' },
@@ -785,8 +827,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1800,
-        'y': 800
+        'x': 5165,
+        'y': 280,
+        'img': 'angel_trial.png'
     },
     '44': {
         'name': { 'pt-BR': '...', 'en-US': 'Earth Dragon' },
@@ -800,8 +843,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 800,
-        'y': 1400
+        'x': 4575,
+        'y': 3700,
+        'img': 'jungle.png'
     },
     '45': {
         'name': { 'pt-BR': '...', 'en-US': 'Industrial Terror (Muito Forte)' },
@@ -815,8 +859,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 1800,
-        'y': 200
+        'x': 742,
+        'y': 816,
+        'img': 'mecha.png'
     },
     '46': {
         'name': { 'pt-BR': '...', 'en-US': 'Mecha Dragon (Lendário)' },
@@ -830,8 +875,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 2000,
-        'y': 400
+        'x': 900,
+        'y': 1158,
+        'img': 'mecha_trial.png'
     },
     '47': {
         'name': { 'pt-BR': '...', 'en-US': 'Black Dragon (Forte)' },
@@ -845,8 +891,9 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 600,
-        'y': 1400
+        'x': 4300,
+        'y': 3300,
+        'img': 'jungle.png'
     },
     '48': {
         'name': { 'pt-BR': '...', 'en-US': 'Dragon King' },
@@ -860,44 +907,76 @@ export const LevelsData = {
         'win': {
             'condition': 'destroy'
         },
-        'x': 600,
-        'y': 1200
+        'x': 3800,
+        'y': 4090,
+        'img': 'jungle_trial.png'
     }
 };
 
 export const UnitsData = {
     '1': {
-        'name': { 'pt-BR': '...', 'en-US': '...' },
-        'desc': { 'pt-BR': '...', 'en-US': '...' },
-        'x': 0, 'y': 0,
-        'hp': 0,
-        'def': 0,
-        'power': 0,
-        'speed': 0,
-        'range': 0,
-        'atkChargeTime': 0,
-        'atkHitTime': 0,
-        'atkFinishTime': 0,
-        'targetCount': 0,
-        'hitLimit': 0,
-        'hitType': 'closest', //closest, random, strongest
+        'name': { 'pt-BR': 'Soldado Padrão', 'en-US': 'Standard Soldier' },
+        'desc': { 'pt-BR': 'Unidade básica de combate corpo a corpo.', 'en-US': 'Basic melee combat unit.' },
+        'x': 800, 'y': 500, 'prev': 0,
+        'hp': 100,
+        'def': 10,
+        'power': 25,
+        'speed': 1.2,
+        'range': 1,
+        'atkChargeTime': 0.5,
+        'atkHitTime': 0.2,
+        'atkFinishTime': 0.3,
+        'targetCount': 1,
+        'hitLimit': 1,
+        'hitType': 'closest',
         'area': 0,
-        'type': 'healer',
+        'type': 'melee',
         'effects': [],
-        'buyCost': 0,
-        'projectile': {},
+        'buyCost': 50,
+        'projectile': {}
+    },
+    '2': {
+        'name': { 'pt-BR': 'Arqueiro', 'en-US': 'Archer' },
+        'desc': { 'pt-BR': 'Ataca inimigos à distância com flechas.', 'en-US': 'Attacks enemies from afar with arrows.' },
+        'x': 1100, 'y': 500, 'prev': 1,
+        'hp': 60,
+        'def': 5,
+        'power': 40,
+        'speed': 1.0,
+        'range': 6,
+        'atkChargeTime': 0.8,
+        'atkHitTime': 0.1,
+        'atkFinishTime': 0.4,
+        'targetCount': 1,
+        'hitLimit': 1,
+        'hitType': 'closest',
+        'area': 0,
+        'type': 'ranged',
+        'effects': [],
+        'buyCost': 120,
+        'projectile': {}
     }
-}
+};
 
 export const AchievementsData = {
     '1': {
-        'name': { 'pt-BR': '...', 'en-US': '...' },
-        'desc': { 'pt-BR': '...', 'en-US': '...' },
-        'x': 0, 'y': 0,
-        'check': () => {return false;},
-        'exp': 0,
+        'name': { 'pt-BR': 'Primeira Vitória', 'en-US': 'First Victory' },
+        'desc': { 'pt-BR': 'Conclua o primeiro nível da campanha.', 'en-US': 'Complete the first campaign level.' },
+        'x': 600, 'y': 400,
+        'check': (GameState) => { return GameState.player.levels['1'] === true; },
+        'exp': 50,
+        'gold': 100,
+        'silver': 10,
+        'rewards': {}
+    },
+    '2': {
+        'name': { 'pt-BR': 'Mestre das Moedas', 'en-US': 'Coin Master' },
+        'desc': { 'pt-BR': 'Acumule 1000 moedas de ouro.', 'en-US': 'Accumulate 1000 gold coins.' },
+        'x': 900, 'y': 400,
+        'check': (GameState) => { return (GameState.player.goldCoins || 0) >= 1000; },
+        'exp': 200,
         'gold': 0,
-        'silver': 0,
-        'rewards': {},
+        'silver': 50,
+        'rewards': {}
     }
-}
+};

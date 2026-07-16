@@ -16,19 +16,20 @@ export const LevelsScreen = () => {
         nodes[`f${id}`] = { 
             x: level.x, 
             y: level.y, 
-            w: 100, 
-            h: 100, 
+            w: 200, 
+            h: 315, 
             id: id,
             prev: level.prev,
             text: t(`f${id}_name`), 
             type: isBeaten ? 'green' : 'red', 
-            imageUrl: 'ex.png' 
+            imageUrl: `./res/sprites/towers/${level.img}`,
+            simple: true
         };
     }
 
     for(const [id, level] of Object.entries(LevelsData)){
         if(level.prev !== 0 && nodes[`f${level.prev}`]){
-            dynamicLinks += linkNodes(nodes[`f${level.prev}`], nodes[`f${id}`], 'red');
+            dynamicLinks += linkNodes(nodes[`f${level.prev}`], nodes[`f${id}`], 'yellow');
         }
     }
 
@@ -55,9 +56,10 @@ export const LevelsScreen = () => {
 
     setTimeout(() => {
         new SpatialViewport('#campaign-map', {
-            worldWidth: 2200,
-            worldHeight: 1600,
-            zoomMax: 3,
+            worldWidth: 6600,
+            worldHeight: 4800,
+            backgroundImage: 'res/worldmap.jpg',
+            zoomMax: 4,
         });
 
         for(const [key, node] of Object.entries(nodes)){

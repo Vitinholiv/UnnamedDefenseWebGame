@@ -12,20 +12,29 @@ export const createEdge = (x1, y1, x2, y2, type = '', fromId = '') => {
     `;
 };
 
-export const createNode = (id, x, y, w, h, text, type = '', imageUrl = null, prev = '0') => {
+export const createNode = (id, x, y, w, h, text, type = '', imageUrl = null, prev = '0', simple = false) => {
     let content = '';
+    
     if(imageUrl){
+        const wrapperStyles = simple 
+            ? `width: ${w}px; height: ${h}px; background: transparent; border: none; box-shadow: none;` 
+            : `width: ${w}px; height: ${h}px;`;
+        const labelHtml = simple 
+            ? '' 
+            : `<div class="nav-node-label">${text}</div>`;
         content = `
-            <div class="nav-node-img-wrapper" style="width: ${w}px; height: ${h}px;">
-                <img src="res/${imageUrl}" class="nav-node-img" alt="${text}">
+            <div class="nav-node-img-wrapper" style="${wrapperStyles}">
+                <img src="${imageUrl}" class="nav-node-img" alt="${text}">
             </div>
-            <div class="nav-node-label">${text}</div>
+            ${labelHtml}
         `;
     } else {
         content = `<button class="game-btn" style="width: ${w}px; height: ${h}px;">${text}</button>`;
     }
+    
+    const extraClass = simple ? ' simple-node' : '';
     return `
-        <div id="${id}" class="nav-node ${type}" prev="${prev}" style="top: ${y}px; left: ${x}px;">
+        <div id="${id}" class="nav-node ${type}${extraClass}" prev="${prev}" style="top: ${y}px; left: ${x}px;">
             ${content}
         </div>
     `;
@@ -34,7 +43,7 @@ export const createNode = (id, x, y, w, h, text, type = '', imageUrl = null, pre
 export const createAllNodes = (allNodes) => {
     let restr = ``;
     for(const [key, node] of Object.entries(allNodes)){
-        restr += createNode(key, node.x, node.y, node.w, node.h, node.text, node.type, node.imageUrl, node.prev);
+        restr += createNode(key, node.x, node.y, node.w, node.h, node.text, node.type, node.imageUrl, node.prev, node.simple);
     }
     return restr;
 };
